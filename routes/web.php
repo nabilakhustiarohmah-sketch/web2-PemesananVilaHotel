@@ -18,3 +18,9 @@ Route::get('/fauziahmartha', function () {
             <p>NIM: 4124006 | Prodi: Sistem Informasi</p>
             <p>Saya siap belajar Laravel! 🚀</p>';
 });
+
+Route::get('/khobirsastrawan', function () {
+    return '<h1>Halo! Nama saya Muhammad Khobir sastrawan</h1>
+            <p>NIM: 4124038 | Prodi: Sistem Informasi</p>
+            <p>Saya siap belajar Laravel! 🚀</p>';
+});
