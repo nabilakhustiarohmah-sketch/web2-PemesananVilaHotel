@@ -24,3 +24,7 @@ Route::get('/khobirsastrawan', function () {
             <p>NIM: 4124038 | Prodi: Sistem Informasi</p>
             <p>Saya siap belajar Laravel! 🚀</p>';
 });
+
+Route::get('/khobir', function () {
+    return "Perkenalan Muhammad Khobir Sastrawan";
+});
