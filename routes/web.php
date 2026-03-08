@@ -25,6 +25,27 @@ Route::get('/khobirsastrawan', function () {
             <p>Saya siap belajar Laravel! 🚀</p>';
 });
 
-Route::get('/khobir', function () {
-    return "Perkenalan Muhammad Khobir Sastrawan";
+
+Route::get('/', function () {
+    return "Selamat datang di website Booking Hotel & Villa";
 });
+
+Route::get('/hotel', function () {
+    return "Halaman daftar hotel";
+});
+
+Route::get('/villa', function () {
+    return "Halaman daftar villa";
+});
+
+Route::get('/booking', function () {
+    return "Halaman booking";
+});
+
+use App\Http\Controllers\HotelController;
+
+Route::get('/', function () {
+    return "Selamat datang di website booking hotel";
+});
+
+Route::get('/hotel', [HotelController::class, 'index']);
