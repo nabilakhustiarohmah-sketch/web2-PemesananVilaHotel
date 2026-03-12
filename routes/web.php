@@ -25,6 +25,14 @@ Route::get('/khobirsastrawan', function () {
             <p>Saya siap belajar Laravel! 🚀</p>';
 });
 
+use App\Http\Controllers\HotelController;
+
+
+Route::get('/hotel', [HotelController::class, 'index']);
+
+use App\Http\Controllers\ProfilController;
+Route::get('/profil', [ProfilController::class, 'index']);
+Route::get('/profil/{NIM}', [ProfilController::class, 'show']);
 
 Route::get('/', function () {
     return "<h2>Selamat datang di Website Booking Hotel & Villa</h2>";
