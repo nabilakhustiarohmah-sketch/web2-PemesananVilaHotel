@@ -24,3 +24,29 @@ use App\Http\Controllers\katalogcontroller;
 
 Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog.index');
 Route::get('/katalog/{id}', [KatalogController::class, 'show'])->name('katalog.show');
+Route::get('/khobirsastrawan', function () {
+    return '<h1>Halo! Nama saya Muhammad Khobir sastrawan</h1>
+            <p>NIM: 4124038 | Prodi: Sistem Informasi</p>
+            <p>Saya siap belajar Laravel! 🚀</p>';
+});
+
+use App\Http\Controllers\HotelController;
+
+
+Route::get('/hotel', [HotelController::class, 'index']);
+
+use App\Http\Controllers\ProfilController;
+Route::get('/profil', [ProfilController::class, 'index']);
+Route::get('/profil/{NIM}', [ProfilController::class, 'show']);
+
+Route::get('/', function () {
+    return "<h2>Selamat datang di Website Booking Hotel & Villa</h2>";
+})->name('home.index');
+
+Route::get('/hotel', function () {
+    return "<h2>Halaman Daftar Hotel</h2>";
+})->name('hotel.index');
+
+Route::get('/villa', function () {
+    return "<h2>Halaman Daftar Villa</h2>";
+})->name('villa.index');
