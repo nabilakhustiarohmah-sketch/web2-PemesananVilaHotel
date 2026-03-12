@@ -1,14 +1,19 @@
 <h1>Profil Tim Developer</h1>
 
-<ul>
 @foreach($mahasiswa as $mhs)
-<li>
-{{ $mhs['nama'] }} - {{ $mhs['nim'] }}
 
-<a href="{{ route('profil.show',$mhs['nim']) }}">
-Lihat Profil
-</a>
+<h3>{{ $mhs['nama'] }}</h3>
+<p>NIM : {{ $mhs['nim'] }}</p>
+<p>Prodi : {{ $mhs['prodi'] }}</p>
+<p>Semester : {{ $mhs['semester'] }}</p>
 
-</li>
+<h4>Keahlian</h4>
+<ul>
+@foreach($mhs['keahlian'] as $skill)
+<li>{{ $skill }}</li>
 @endforeach
 </ul>
+
+<hr>
+
+@endforeach
