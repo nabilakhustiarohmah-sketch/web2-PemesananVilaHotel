@@ -18,3 +18,9 @@ Route::get('/fauziahmartha', function () {
             <p>NIM: 4124006 | Prodi: Sistem Informasi</p>
             <p>Saya siap belajar Laravel! 🚀</p>';
 });
+
+
+use App\Http\Controllers\katalogcontroller;
+
+Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog.index');
+Route::get('/katalog/{id}', [KatalogController::class, 'show'])->name('katalog.show');
