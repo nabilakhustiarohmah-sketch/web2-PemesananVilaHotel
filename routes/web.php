@@ -27,25 +27,13 @@ Route::get('/khobirsastrawan', function () {
 
 
 Route::get('/', function () {
-    return "Selamat datang di website Booking Hotel & Villa";
-});
+    return "<h2>Selamat datang di Website Booking Hotel & Villa</h2>";
+})->name('home.index');
 
 Route::get('/hotel', function () {
-    return "Halaman daftar hotel";
-});
+    return "<h2>Halaman Daftar Hotel</h2>";
+})->name('hotel.index');
 
 Route::get('/villa', function () {
-    return "Halaman daftar villa";
-});
-
-Route::get('/booking', function () {
-    return "Halaman booking";
-});
-
-use App\Http\Controllers\HotelController;
-
-Route::get('/', function () {
-    return "Selamat datang di website booking hotel";
-});
-
-Route::get('/hotel', [HotelController::class, 'index']);
+    return "<h2>Halaman Daftar Villa</h2>";
+})->name('villa.index');
