@@ -2,10 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Route baru – wajib ditambahkan!
 Route::get('/perkenalan', function () {
     return '<h1>Halo! Nama saya Nabila Khustia Rohmah</h1>
@@ -26,7 +22,7 @@ Route::get('/khobirsastrawan', function () {
 });
 
 
-use App\Http\Controllers\katalogcontroller;
+use App\Http\Controllers\KatalogController;
 
 Route::get('/katalog', [KatalogController::class, 'index'])->name('katalog.index');
 Route::get('/katalog/{id}', [KatalogController::class, 'show'])->name('katalog.show');
@@ -39,14 +35,4 @@ use App\Http\Controllers\ProfilController;
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
 Route::get('/profil/{nim}', [ProfilController::class, 'show'])->name('profil.show');
 
-Route::get('/', function () {
-    return "<h2>Selamat datang di Website Booking Hotel & Villa</h2>";
-})->name('home.index');
-
-Route::get('/hotel', function () {
-    return "<h2>Halaman Daftar Hotel</h2>";
-})->name('hotel.index');
-
-Route::get('/villa', function () {
-    return "<h2>Halaman Daftar Villa</h2>";
-})->name('villa.index');
+Route::get('/produk', [KatalogController::class, 'index'])->name('produk.index');
