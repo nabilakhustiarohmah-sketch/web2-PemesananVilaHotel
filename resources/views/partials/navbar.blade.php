@@ -3,7 +3,7 @@
 
         <!-- Logo -->
         <h1 class="text-2xl font-bold tracking-wide">
-            BlueStay
+            VilHo
         </h1>
 
         <!-- Menu Desktop -->
