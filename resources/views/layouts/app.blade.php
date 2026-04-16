@@ -22,6 +22,7 @@
     <main class="container mx-auto px-6 py-10">
         @include('partials.alert')
 
+
         <div class="bg-white shadow-2xl rounded-3xl p-8">
             @yield('content')
         </div>

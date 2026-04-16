@@ -42,3 +42,14 @@ Route::get('/produk', function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+use App\Http\Controllers\KatalogController;
+
+// Berikan nama alias dengan ->name()
+Route::get('/produk', [KatalogController::class, 'index'])->name('produk.index');
+Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
+Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
+
+// Route untuk menghapus produk berdasarkan ID
+Route::get('/produk/detail/{id}', [KatalogController::class, 'show'])->name('produk.show');
+Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');

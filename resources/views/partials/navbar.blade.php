@@ -12,11 +12,13 @@
 
             <a href="{{ route('produk.index') }}"
                class="hover:text-blue-200 transition">
-               Produk
-            </a>
+               Produk</a>
 
             <a href="#" class="hover:text-blue-200 transition">About</a>
             <a href="#" class="hover:text-blue-200 transition">Contact</a>
+            <a href="{{ url('/produk/tambah') }}" class="nav-link">Tambah Produk</a>
+
+
         </div>
 
     </div>
