@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VilHo</title>
+    <title>@yield('title', 'VilHo')</title>
 
+    {{-- Tailwind --}}
     <script src="https://cdn.tailwindcss.com"></script>
 
+    {{-- Font --}}
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 
     <style>
@@ -19,13 +21,16 @@
     {{-- ✅ Navbar --}}
     @include('partials.navbar')
 
-    <main class="container mx-auto px-6 py-10">
+    <main class="flex-grow container mx-auto px-6 py-10">
+        
+        {{-- ✅ Alert global --}}
         @include('partials.alert')
 
-
+        {{-- ✅ Konten halaman --}}
         <div class="bg-white shadow-2xl rounded-3xl p-8">
             @yield('content')
         </div>
+
     </main>
 
     {{-- ✅ Footer --}}
