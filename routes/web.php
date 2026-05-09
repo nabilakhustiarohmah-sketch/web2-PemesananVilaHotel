@@ -59,4 +59,4 @@ Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('prod
 */
 Route::view('/about', 'about');
 
-Route::get('/home', [KatalogController::class, 'home'])->name('home');
+Route::get('/', [KatalogController::class, 'home'])->name('home');

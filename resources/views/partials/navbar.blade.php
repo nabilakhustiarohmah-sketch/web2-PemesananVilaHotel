@@ -8,7 +8,7 @@
 
         <!-- Menu Desktop -->
         <div class="hidden md:flex items-center space-x-6 font-medium">
-            <a href="/" class="hover:text-blue-200 transition">Home</a>
+            <a href="{{ route('home') }}" class="hover:text-blue-200 transition">Home</a>
 
             <a href="{{ route('produk.index') }}"
                class="hover:text-blue-200 transition">
@@ -37,7 +37,7 @@
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2">
-        <a href="/" class="block">Home</a>
+        <a href="{{ route('home') }}" class="block">Home</a>
 
         <a href="{{ route('produk.index') }}" class="block">
             Produk
