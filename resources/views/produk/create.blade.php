@@ -5,6 +5,33 @@
 
 <form action="{{ route('produk.store') }}" method="POST" enctype="multipart/form-data" class="space-y-5">
     @csrf
+    {{-- Kategori --}}
+<div>
+    <label class="block font-medium mb-1">
+        Kategori
+    </label>
+
+    <select name="kategori"
+            class="w-full border rounded-lg p-2 focus:ring focus:ring-blue-200">
+
+        <option value="">-- Pilih Kategori --</option>
+
+        <option value="Hotel">
+            Hotel
+        </option>
+
+        <option value="Villa">
+            Villa
+        </option>
+
+    </select>
+
+    @error('kategori')
+        <p class="text-red-500 text-sm mt-1">
+            {{ $message }}
+        </p>
+    @enderror
+</div>
 
     {{-- Nama --}}
     <div>

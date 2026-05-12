@@ -1,69 +1,115 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
 @section('content')
-<div class="container" style="margin-top: 60px;">
+<div class="container" style="margin-top: 50px;">
     <div class="row justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
 
-            <div class="card shadow" style="border-radius: 20px; overflow: hidden; border: none;">
-                
+            <div class="card shadow-lg" style="border-radius: 18px; overflow: hidden; border: none;">
+
                 <!-- HEADER -->
-               <div style="background: linear-gradient(135deg, #004aad, #007bff); color: white; padding: 25px;" class="text-center">
-    <h4 class="mb-1">Tambah Katalog</h4>
-    <p class="mb-0">Masukkan data hotel / villa dengan lengkap</p>
-</div>
+                    <div style="
+                        background: linear-gradient(135deg, #004aad, #007bff);
+                        color: white;
+                        padding: 28px;
+                        text-align: center;
+                    ">
 
-                <!-- BODY -->
+                        <h2 class="mb-1 fw-bold" style="font-size: 28px;">
+                            Tambah Katalog
+                        </h2>
+
+                        <small style="font-size: 14px; opacity: 0.9;">
+                            Isi data hotel / villa dengan lengkap
+                        </small>
+
+                    </div>
                 <div class="card-body p-4">
 
                     <form action="/produk/simpan" method="POST" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- Nama -->
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">Nama Hotel / Villa</label>
-                            <input type="text" name="nama"
-                                class="form-control custom-input"
-                                placeholder="Contoh: Villa Bali Indah" required>
+                        <div class="row g-3">
+
+                            <!-- KIRI -->
+                            <div class="col-md-6">
+
+                                <div class="section-box">
+                                    <label>Nama</label>
+                                    <input type="text" name="nama" class="form-control" required>
+                                </div>
+
+                                <div class="section-box">
+                                    <label>Kategori</label>
+                                    <select name="kategori" class="form-control" required>
+                                        <option>Hotel</option>
+                                        <option>Villa</option>
+                                    </select>
+                                </div>
+
+                                <div class="section-box">
+                                    <label>Lokasi</label>
+                                    <input type="text" name="lokasi" class="form-control" placeholder="Bali, Indonesia" required>
+                                </div>
+
+                                <div class="section-box">
+                                    <label>Kapasitas</label>
+                                    <input type="number" name="kapasitas" class="form-control" required>
+                                </div>
+
+                                <div class="section-box">
+                                    <label>Harga / Malam</label>
+                                    <input type="number" name="harga" class="form-control" required>
+                                </div>
+
+                            </div>
+
+                            <!-- KANAN -->
+                            <div class="col-md-6">
+
+                                <!-- FOTO UTAMA -->
+                                <div class="upload-card">
+                                    <label>Foto Utama</label>
+                                    <input type="file" name="foto_utama" id="fotoUtama" hidden>
+
+                                    <label for="fotoUtama" class="upload-area">
+                                        <i class="bi bi-image"></i>
+                                        <span>Pilih Foto Utama</span>
+                                        <small id="namaUtama"></small>
+                                    </label>
+                                </div>
+
+                                <!-- FOTO TAMBAHAN -->
+                                <div class="upload-card mt-3">
+                                    <label>Foto Tambahan</label>
+                                    <input type="file" name="foto_tambahan[]" id="fotoTambahan" multiple hidden>
+
+                                    <label for="fotoTambahan" class="upload-area">
+                                        <i class="bi bi-images"></i>
+                                        <span>Upload Banyak Foto</span>
+                                        <small id="namaTambahan"></small>
+                                    </label>
+                                </div>
+
+                            </div>
+
                         </div>
 
-                        <!-- Harga -->
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">Harga per Malam (Rp)</label>
-                            <input type="number" name="harga"
-                                class="form-control custom-input"
-                                placeholder="750000" required>
-                        </div>
+                       <!-- BUTTON -->
+                        <div class="d-flex justify-content-center mt-4 gap-3">
 
-                        <!-- Upload Foto -->
-                        <div class="mb-4">
-                            <label class="form-label fw-semibold">Upload Foto</label>
+                            <a href="/produk" class="btn-custom btn-cancel">
+                                Batal
+                            </a>
 
-<div class="upload-box text-center p-3" style="max-width: 300px; margin: auto;">
-    <input type="file" name="foto" id="fotoInput" hidden>
-    
-    <label for="fotoInput" style="cursor: pointer;">
-        <div>
-            <i class="bi bi-cloud-upload" style="font-size: 28px; color:#004aad;"></i>
-            <p class="mb-1 mt-2" style="font-size: 14px;">Klik upload</p>
-            <small class="text-muted" style="font-size: 12px;">PNG / JPG</small>
-        </div>
-    </label>
-
-    <p id="fileName" class="mt-2 text-success" style="font-size: 13px;"></p>
-</div>
-
-                        <!-- FOOTER BUTTON -->
-                        <div class="d-flex justify-content-between mt-4">
-                             <button type="submit" class="btn px-4 text-white" style="background-color: #004aad;">
-                                BATAL
+                            <button type="submit" class="btn-custom btn-save">
+                                Simpan
                             </button>
-                            <button type="submit" class="btn px-4 text-white" style="background-color: #004aad;">
-                                SIMPAN DATA
-                            </button>
+
                         </div>
 
                     </form>
+
                 </div>
             </div>
 
@@ -71,35 +117,111 @@
     </div>
 </div>
 
-<!-- STYLE TAMBAHAN -->
+<!-- STYLE -->
 <style>
-.custom-input {
-    border-radius: 10px;
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    transition: 0.3s;
-}
-.custom-input:focus {
-    border-color: #004aad;
-    box-shadow: 0 0 5px rgba(0,74,173,0.3);
+.section-box{
+    margin-bottom: 12px;
 }
 
-.upload-box {
-    border: 2px dashed #004aad;
-    border-radius: 15px;
-    background-color: #f8f9fa;
-    transition: 0.3s;
+.section-box label{
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
 }
-.upload-box:hover {
-    background-color: #eef4ff;
+
+.form-control{
+    border-radius: 10px;
+    padding: 9px 12px;
+    border: 1px solid #ddd;
+}
+
+.form-control:focus{
+    border-color: #004aad;
+    box-shadow: 0 0 5px rgba(0,74,173,0.2);
+}
+
+.upload-card{
+    background: #f8f9fa;
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px dashed #004aad;
+}
+
+.upload-area{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 18px;
+    color: #004aad;
+    text-align: center;
+}
+
+.upload-area i{
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.upload-area span{
+    font-weight: 600;
+}
+
+.upload-area small{
+    color: green;
+    font-size: 12px;
+}
+
+.btn-custom{
+    padding: 12px 28px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-block;
+    transition: 0.3s;
+    min-width: 140px;
+    text-align: center;
+}
+
+/* tombol batal */
+.btn-cancel{
+    background: #e6f0ff;
+    color: #004aad;
+    border: 1px solid #cfe0ff;
+}
+
+.btn-cancel:hover{
+    background: #d6e8ff;
+}
+
+/* tombol simpan */
+.btn-save{
+    background: linear-gradient(135deg, #004aad, #007bff);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0,74,173,0.25);
+}
+
+.btn-save:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(0,74,173,0.35);
 }
 </style>
 
-<!-- SCRIPT UNTUK NAMPILIN NAMA FILE -->
+<!-- SCRIPT -->
 <script>
-document.getElementById('fotoInput').addEventListener('change', function(){
-    let fileName = this.files[0]?.name;
-    document.getElementById('fileName').innerText = fileName ?? '';
+document.getElementById('fotoUtama').addEventListener('change', function () {
+    document.getElementById('namaUtama').innerText = this.files[0]?.name ?? '';
+});
+
+document.getElementById('fotoTambahan').addEventListener('change', function () {
+    let files = this.files;
+    let text = "";
+    for (let i = 0; i < files.length; i++) {
+        text += files[i].name + " ";
+    }
+    document.getElementById('namaTambahan').innerText = text;
 });
 </script>
 

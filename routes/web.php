@@ -28,20 +28,8 @@ Route::get('/khobirsastrawan', function () {
 
 use App\Http\Controllers\KatalogController;
 
-/*
-|--------------------------------------------------------------------------
-| Route Utama
-|--------------------------------------------------------------------------
-*/
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [KatalogController::class, 'home'])->name('home');
 
-/*
-|--------------------------------------------------------------------------
-| Route Produk
-|--------------------------------------------------------------------------
-*/
 Route::get('/produk', [KatalogController::class, 'index'])->name('produk.index');
 
 Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
@@ -52,11 +40,8 @@ Route::get('/produk/detail/{id}', [KatalogController::class, 'show'])->name('pro
 
 Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
 
-/*
-|--------------------------------------------------------------------------
-| Route About
-|--------------------------------------------------------------------------
-*/
 Route::view('/about', 'about');
 
-Route::get('/', [KatalogController::class, 'home'])->name('home');
+Route::get('/hotel', [KatalogController::class, 'hotel'])->name('hotel.all');
+
+Route::get('/villa', [KatalogController::class, 'villa'])->name('villa.all');
