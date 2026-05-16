@@ -34,10 +34,11 @@
 
             <!-- FOTO -->
             <div class="relative">
-
-                <img src="{{ asset('images/' . ($p->foto ?? 'default.jpg')) }}"
-                     alt="{{ $p->nama }}"
-                     class="w-full h-58 object-cover">
+                <a href="{{ route('produk.show', $p->id) }}">
+                    <img src="{{ asset('images/' . ($p->foto ?? 'default.jpg')) }}"
+                        alt="{{ $p->nama }}"
+                        class="w-full h-58 object-cover">
+                </a>
 
                 <div class="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
                     ⭐ 4.9
@@ -69,12 +70,6 @@
                     </div>
 
                     <div class="flex gap-2">
-
-                        <a href="{{ route('produk.show', $p->id) }}"
-                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm transition">
-                            Detail
-                        </a>
-
                         <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
 
                             @csrf
@@ -132,11 +127,11 @@
 
             <!-- FOTO -->
             <div class="relative">
-
+                <a href="{{ route('produk.show', $p->id) }}">
                 <img src="{{ asset('images/' . ($p->foto ?? 'default.jpg')) }}"
                      alt="{{ $p->nama }}"
                      class="w-full h-56 object-cover">
-
+                </a>
                 <div class="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
                     ⭐ 4.9
                 </div>
@@ -168,10 +163,6 @@
 
                     <div class="flex gap-2">
 
-                        <a href="{{ route('produk.show', $p->id) }}"
-                           class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm transition">
-                            Detail
-                        </a>
 
                         <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
 

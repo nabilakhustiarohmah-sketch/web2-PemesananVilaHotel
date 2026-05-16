@@ -2,83 +2,186 @@
 
 @section('content')
 
-<div class="container" style="margin-top: 60px;">
+<div>
 
-    <div class="row g-4">
+    <!-- JUDUL -->
+    <div class="mb-8">
 
-        <!-- KIRI: GAMBAR -->
-        <div class="col-md-7">
+        <h1 class="text-5xl font-bold text-gray-800">
+            {{ $data->nama }}
+        </h1>
+
+        <div class="flex items-center gap-3 mt-3">
+
+            <span class="bg-blue-600 text-white px-4 py-2 rounded-full text-sm">
+                {{ $data->kategori }}
+            </span>
+
+            <span class="text-yellow-500 font-semibold">
+                ⭐ 4.8
+            </span>
+
+        </div>
+
+    </div>
+
+    <!-- GRID -->
+    <div class="grid lg:grid-cols-3 gap-8">
+
+        <!-- ====================== -->
+        <!-- KIRI -->
+        <!-- ====================== -->
+
+        <div class="lg:col-span-2">
 
             <!-- FOTO UTAMA -->
-            <div class="card shadow" style="border-radius: 15px; overflow: hidden;">
+            <div class="overflow-hidden rounded-3xl shadow-xl">
+
                 <img src="{{ asset('images/'.$data->foto) }}"
-                    style="width: 100%; height: 400px; object-fit: cover;">
+                    class="w-full h-[500px] object-cover">
+
             </div>
 
-            <!-- GALERI -->
-            <div class="d-flex gap-2 mt-3 flex-wrap">
+            <!-- SLIDER -->
+            <div class="flex gap-4 mt-5 overflow-x-auto pb-2">
+                @foreach($data->fotos as $foto)
 
+                <img src="{{ asset('images/' . $foto->foto) }}"
+                    class="w-full h-40 object-cover rounded-lg">
 
-                    @if($data->foto1)
-                        <img src="{{ asset('images/'.$data->foto1) }}" class="img-thumbnail">
+                @endforeach
+
+            </div>
+
+           <!-- DESKRIPSI -->
+            <div class="bg-white shadow-xl rounded-3xl p-8 mt-8">
+
+                <h2 class="text-2xl font-bold mb-4">
+
+                    @if(strtolower(trim($data->kategori)) == 'hotel')
+                        Tentang Hotel
+                    @else
+                        Tentang Villa
                     @endif
 
-                    @if($data->foto2)
-                        <img src="{{ asset('images/'.$data->foto2) }}" class="img-thumbnail">
-                    @endif
+                </h2>
 
-                    @if($data->foto3)
-                        <img src="{{ asset('images/'.$data->foto3) }}" class="img-thumbnail">
-                    @endif
+                <p class="text-gray-600 leading-8">
+
+                    {{ $data->deskripsi ?? 
+                        (strtolower(trim($data->kategori)) == 'hotel' 
+                            ? 'Nikmati pengalaman menginap hotel terbaik dengan fasilitas lengkap dan lokasi strategis.' 
+                            : 'Nikmati pengalaman menginap villa private dengan suasana tenang dan nyaman.' ) 
+                    }}
+
+                </p>
+
             </div>
 
         </div>
 
-        <!-- KANAN: INFO -->
-        <div class="col-md-5">
+        <!-- ====================== -->
+        <!-- KANAN -->
+        <!-- ====================== -->
 
-            <div class="card shadow p-4" style="border-radius: 15px;">
+        <div class="space-y-5">
 
-               <!-- NAMA -->
-<h3 class="fw-bold mb-1">
-    {{ $data->nama ?? '-' }}
-</h3>
+            <!-- LOKASI -->
+            <div class="bg-white shadow-xl rounded-3xl p-6">
 
-<!-- KATEGORI -->
-<span class="badge bg-primary mb-3">
-    {{ $data->kategori ?? '-' }}
-</span>
+                <div class="mb-5">
 
-<hr>
+                    <p class="text-gray-400 text-sm">
+                        📍 Lokasi
+                    </p>
 
-<!-- INFO -->
-<p class="mb-2">
-    📍 <b>Lokasi:</b>
-    {{ $data->lokasi ?? 'Belum diisi' }}
-</p>
+                    <h3 class="font-bold text-xl mt-2">
+                        {{ $data->lokasi ?? 'Belum diisi' }}
+                    </h3>
 
-<p class="mb-2">
-    👥 <b>Kapasitas:</b>
-    {{ $data->kapasitas ?? '0' }} orang
-</p>
+                </div>
 
-<p class="mb-3 fs-5 text-primary">
-    💰 Rp {{ number_format($data->harga ?? 0) }} / malam
-</p>
+                <div>
 
-<hr>
+                    <p class="text-gray-400 text-sm">
+                        👥 Kapasitas
+                    </p>
 
-<!-- DESKRIPSI -->
-<p class="text-muted">
-    Nikmati pengalaman menginap terbaik dengan fasilitas lengkap dan lokasi strategis.
-</p>
+                    <h3 class="font-bold text-xl mt-2">
+                        {{ $data->kapasitas ?? '0' }} Orang
+                    </h3>
 
-<!-- BUTTON -->
-<button class="btn btn-primary w-100 mt-3" style="padding: 12px;">
-    Booking Sekarang
-</button>
+                </div>
 
             </div>
+
+            <!-- FASILITAS + TIPE -->
+            <div class="{{ $data->kategori == 'hotel' ? 'grid grid-cols-2 gap-7' : 'grid grid-cols-1' }}">
+
+                <!-- FASILITAS -->
+                <div class="bg-white shadow-xl rounded-3xl p-6 
+                            {{ $data->kategori == 'Villa' ? 'w-full max-w-4xl mx-auto' : '' }}">
+
+                    <h3 class="font-bold text-lg mb-4">
+                        Fasilitas {{ $data->kategori }}
+                    </h3>
+
+                    <div class="space-y-1 text-gray-700 text-sm">
+
+                        @foreach(explode(',', $data->fasilitas) as $item)
+                            <div>
+                                ✅ {{ trim($item) }}
+                            </div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+                <!-- TIPE KAMAR (KHUSUS HOTEL) -->
+                @if(strtolower(trim($data->kategori)) == 'hotel')
+
+                <div class="bg-white shadow-xl rounded-3xl p-6">
+
+                    <h3 class="font-bold text-lg mb-4">
+                        Tipe Kamar
+                    </h3>
+
+                    <div class="space-y-2 text-gray-700 text-sm">
+
+                        @foreach(explode(',', $data->tipe_kamar) as $item)
+                            <div class="bg-blue-50 p-2 rounded-lg">
+                                🛏️ {{ trim($item) }}
+                            </div>
+                        @endforeach
+
+                    </div>
+
+                </div>
+
+                @endif
+
+            </div>
+            <!-- HARGA -->
+            <div class="bg-blue-600 text-white rounded-3xl shadow-xl p-6">
+
+                <p class="opacity-80">
+                    Harga / malam
+                </p>
+
+                <h1 class="text-4xl font-bold mt-2">
+
+                    Rp {{ number_format($data->harga ?? 0) }}
+
+                </h1>
+
+            </div>
+
+            <!-- BUTTON -->
+            <button class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-3xl font-bold shadow-xl text-lg">
+
+                Booking Sekarang
+
+            </button>
 
         </div>
 

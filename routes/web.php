@@ -45,3 +45,7 @@ Route::view('/about', 'about');
 Route::get('/hotel', [KatalogController::class, 'hotel'])->name('hotel.all');
 
 Route::get('/villa', [KatalogController::class, 'villa'])->name('villa.all');
+
+Route::get('/produk/{id}', [KatalogController::class, 'show'])->name('produk.show');
+
+Route::get('/search', [KatalogController::class, 'search'])->name('produk.search');

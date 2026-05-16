@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Produk;
+use App\Models\FotoProduk;
+use Illuminate\Http\Request;
 
 class KatalogController extends Controller
 {
@@ -42,7 +43,8 @@ class KatalogController extends Controller
     // ================== DETAIL ==================
     public function show($id)
     {
-        $data = Produk::findOrFail($id);
+        $data = Produk::with('fotos')->findOrFail($id);
+    
         return view('Katalog.show', compact('data'));
     }
 
@@ -54,78 +56,88 @@ class KatalogController extends Controller
 
     // ================== SIMPAN DATA ==================
     public function store(Request $request)
-{
-    $request->validate([
-        'nama' => 'required',
-        'kategori' => 'required',
-        'lokasi' => 'required',
-        'kapasitas' => 'required|numeric',
-        'harga' => 'required|numeric',
-        'foto_utama' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
+    {
+        $request->validate([
+            'nama' => 'required',
+            'kategori' => 'required',
+            'lokasi' => 'required',
+            'kapasitas' => 'required',
+            'harga' => 'required',
+            'foto_utama' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
 
-    // ================= SIMPAN DATA =================
-    $data = new Produk();
+        // ================= SIMPAN PRODUK =================
+        $produk = new Produk();
 
-    $data->nama = $request->nama;
-    $data->kategori = $request->kategori;
-    $data->lokasi = $request->lokasi;
-    $data->kapasitas = $request->kapasitas;
-    $data->harga = $request->harga;
+        $produk->nama = $request->nama;
+        $produk->kategori = $request->kategori;
+        $produk->lokasi = $request->lokasi;
+        $produk->kapasitas = $request->kapasitas;
+        $produk->harga = $request->harga;
+        $produk->fasilitas = $request->fasilitas;
+        $produk->tipe_kamar = $request->tipe_kamar;
 
-    // ================= FOTO UTAMA =================
-    $fotoUtama = $request->file('foto_utama');
-    $namaUtama = time().'_utama.'.$fotoUtama->getClientOriginalExtension();
-    $fotoUtama->move(public_path('images'), $namaUtama);
+        // ================= FOTO UTAMA =================
+        $fotoUtama = $request->file('foto_utama');
 
-    $data->foto_utama = $namaUtama;
+        $namaUtama = time() . '_utama.' . $fotoUtama->getClientOriginalExtension();
 
-    // ================= FOTO TAMBAHAN =================
-    if ($request->hasFile('foto1')) {
-        $foto1 = $request->file('foto1');
-        $nama1 = time().'1.'.$foto1->getClientOriginalExtension();
-        $foto1->move(public_path('images'), $nama1);
-        $data->foto1 = $nama1;
+        $fotoUtama->move(public_path('images'), $namaUtama);
+
+        $produk->foto_utama = $namaUtama;
+
+        $produk->save();
+
+        // ================= FOTO TAMBAHAN =================
+        if ($request->hasFile('fotos')) {
+
+            foreach ($request->file('fotos') as $file) {
+
+                $namaFoto = time() . '_' . $file->getClientOriginalName();
+
+                $file->move(public_path('images'), $namaFoto);
+
+                FotoProduk::create([
+                    'produk_id' => $produk->id,
+                    'foto' => $namaFoto
+                ]);
+            }
+        }
+
+        return redirect('/produk')
+            ->with('success', 'Produk berhasil ditambahkan');
     }
 
-    if ($request->hasFile('foto2')) {
-        $foto2 = $request->file('foto2');
-        $nama2 = time().'2.'.$foto2->getClientOriginalExtension();
-        $foto2->move(public_path('images'), $nama2);
-        $data->foto2 = $nama2;
-    }
-
-    if ($request->hasFile('foto3')) {
-        $foto3 = $request->file('foto3');
-        $nama3 = time().'3.'.$foto3->getClientOriginalExtension();
-        $foto3->move(public_path('images'), $nama3);
-        $data->foto3 = $nama3;
-    }
-
-    $data->save();
-
-    return redirect('/produk')->with('success', 'Produk berhasil ditambahkan');
-}
     // ================== HAPUS ==================
     public function destroy($id)
     {
-        $produk = Produk::findOrFail($id);
+        $produk = Produk::with('fotos')->findOrFail($id);
 
         // hapus foto utama
-        if ($produk->foto_utama && file_exists(public_path('uploads/' . $produk->foto_utama))) {
-            unlink(public_path('uploads/' . $produk->foto_utama));
+        if (
+            $produk->foto_utama &&
+            file_exists(public_path('images/' . $produk->foto_utama))
+        ) {
+            unlink(public_path('images/' . $produk->foto_utama));
         }
 
         // hapus foto tambahan
-        foreach (['foto1', 'foto2', 'foto3'] as $foto) {
-            if ($produk->$foto && file_exists(public_path('uploads/' . $produk->$foto))) {
-                unlink(public_path('uploads/' . $produk->$foto));
+        foreach ($produk->fotos as $foto) {
+
+            if (
+                $foto->foto &&
+                file_exists(public_path('images/' . $foto->foto))
+            ) {
+                unlink(public_path('images/' . $foto->foto));
             }
+
+            $foto->delete();
         }
 
         $produk->delete();
 
-        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus');
+        return redirect('/produk')
+            ->with('success', 'Produk berhasil dihapus');
     }
 
     // ================== HOTEL ==================
@@ -147,4 +159,24 @@ class KatalogController extends Controller
 
         return view('villa', compact('villas'));
     }
+
+    public function search(Request $request)
+{
+    $query = Produk::query();
+
+    // Search lokasi
+    if ($request->lokasi) {
+        $query->where('lokasi', 'like', '%' . $request->lokasi . '%');
+    }
+
+    // Search peserta
+    if ($request->peserta) {
+        $query->where('kapasitas', '>=', $request->peserta);
+    }
+
+    $hasil = $query->get();
+
+    return view('Katalog.search', compact('hasil'));
+}
+
 }

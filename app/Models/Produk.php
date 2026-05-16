@@ -2,13 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\FotoProduk;
 
 class Produk extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'nama',
+        'harga',
+        'lokasi',
+    ];
 
-    // Tambahkan baris ini untuk "memberi izin" kolom mana saja yang boleh diisi
-    protected $fillable = ['nama', 'harga', 'foto'];
+    public function fotos()
+    {
+        return $this->hasMany(FotoProduk::class);
+    }
 }

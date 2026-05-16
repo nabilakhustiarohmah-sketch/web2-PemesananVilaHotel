@@ -17,36 +17,43 @@
 <!-- SEARCH BOX -->
 <section class="search-wrapper container">
 
-    <form action="/cari" method="GET" class="search-box">
+    <form action="{{ route('produk.search') }}" method="GET" class="search-box">
 
-        <!-- LOKASI -->
-        <div class="search-item">
-            <label>Lokasi</label>
-            <input type="text" name="lokasi" placeholder="Cari destinasi">
-        </div>
+    <!-- Lokasi -->
+    <div>
+        <label>Lokasi</label>
+        <input type="text" name="lokasi" placeholder="Cari kota atau lokasi"
+               class="border p-2 rounded-lg w-full">
+    </div>
 
-        <div class="divider"></div>
+    <!-- Tanggal Check In -->
+    <div>
+        <label>Check In</label>
+        <input type="date" name="checkin"
+               class="border p-2 rounded-lg w-full">
+    </div>
+    <!-- Tanggal Check Out -->
+    <div>
+        <label>Check Out</label>
+        <input type="date" name="checkout"
+               class="border p-2 rounded-lg w-full">
+    </div>
 
-        <!-- TANGGAL -->
-        <div class="search-item">
-            <label>Kapan</label>
-            <input type="date" name="tanggal">
-        </div>
-
-        <div class="divider"></div>
-
-        <!-- TAMU -->
-        <div class="search-item">
-            <label>Peserta</label>
-            <input type="number" name="tamu" placeholder="Tambahkan tamu">
-        </div>
-
-        <!-- BUTTON -->
-        <button type="submit" class="btn-search">
-            🔍
+    <!-- Peserta -->
+    <div>
+        <label>Peserta</label>
+        <input type="number" name="peserta" placeholder="Jumlah peserta"
+               class="border p-2 rounded-lg w-full">
+    </div>
+    <!-- Tombol Search -->
+    <div>
+        <button type="submit"
+                class="bg-blue-600 text-white px-5 py-2 rounded-lg w-full mt-6">
+            Cari Hotel
         </button>
+    </div>
 
-    </form>
+</form>
 
 </section>
 
@@ -66,9 +73,9 @@
             <div class="mini-card">
 
                 <div class="mini-img">
-
-                    <img src="{{ asset('images/'.$p->foto) }}">
-
+                    <a href="{{ route('produk.show', $p->id) }}" class="blok">
+                        <img src="{{ asset('images/'.$p->foto) }}">
+                    </a>
                     <div class="rating">
                         ⭐ 4.9
                     </div>
@@ -79,7 +86,9 @@
 
                     <h6>{{ $p->nama }}</h6>
 
-                    <p>Hotel Premium</p>
+                    <p class="text-gray-500 text-sm">
+                        📍 {{ $p->lokasi }}
+                    </p>
 
                     <span>
                         Rp {{ number_format($p->harga) }}
@@ -113,8 +122,9 @@
             <div class="mini-card">
 
                 <div class="mini-img">
-
-                    <img src="{{ asset('images/'.$p->foto) }}">
+                    <a href="{{ route('produk.show', $p->id) }}" class="blok">
+                        <img src="{{ asset('images/'.$p->foto) }}">
+                </a>
 
                     <div class="rating">
                         ⭐ 4.9
@@ -126,7 +136,9 @@
 
                     <h6>{{ $p->nama }}</h6>
 
-                    <p>Villa Premium</p>
+                    <p class="text-gray-500 text-sm">
+                        📍 {{ $p->lokasi }}
+                    </p>
 
                     <span>
                         Rp {{ number_format($p->harga) }}
@@ -179,6 +191,7 @@ body{
     height: 220px;
     object-fit: cover;
     transition: 0.4s;
+    border-radius: 12px;
 }
 
 .mini-card:hover img{

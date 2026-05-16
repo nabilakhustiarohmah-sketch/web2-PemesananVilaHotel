@@ -62,6 +62,22 @@
                                     <input type="number" name="harga" class="form-control" required>
                                 </div>
 
+                                <div class="section-box">
+                                    <label>Fasilitas</label>
+                                    <textarea name="fasilitas"
+                                        class="form-control"
+                                        rows="4"
+                                        placeholder="Wifi/n, Kolam Renang, AC, Parkir"></textarea>
+                                </div>
+
+                                <div class="section-box">
+                                    <label>Tipe Kamar</label>
+                                    <textarea name="tipe_kamar"
+                                        class="form-control"
+                                        rows="4"
+                                        placeholder="Kamar Queen Smart, Kamar Twin Smart"></textarea>
+                                </div>
+
                             </div>
 
                             <!-- KANAN -->
@@ -81,14 +97,25 @@
 
                                 <!-- FOTO TAMBAHAN -->
                                 <div class="upload-card mt-3">
+
                                     <label>Foto Tambahan</label>
-                                    <input type="file" name="foto_tambahan[]" id="fotoTambahan" multiple hidden>
+
+                                    <input 
+                                        type="file" 
+                                        name="fotos[]" 
+                                        id="fotoTambahan"
+                                        multiple
+                                        hidden
+                                    >
 
                                     <label for="fotoTambahan" class="upload-area">
                                         <i class="bi bi-images"></i>
-                                        <span>Upload Banyak Foto</span>
+
+                                        <span>Pilih Banyak Foto</span>
+
                                         <small id="namaTambahan"></small>
                                     </label>
+
                                 </div>
 
                             </div>
