@@ -21,6 +21,20 @@
             {{ $p->nama }}
         </h3>
 
+        <div class="flex flex-wrap gap-2 mt-3">
+
+            @foreach($p->tags as $tag)
+
+                <span class="bg-gray-200 text-xs px-2 py-1 rounded-full">
+
+                    #{{ $tag->nama }}
+
+                </span>
+
+            @endforeach
+
+        </div>
+
         <p class="text-gray-500">
             Rp {{ number_format($p->harga,0,',','.') }}
         </p>

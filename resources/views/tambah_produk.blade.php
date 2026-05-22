@@ -80,6 +80,35 @@
 
                             </div>
 
+                            <!-- TAG -->
+                            <div class="mb-6">
+
+                                <label class="block font-bold mb-3 text-gray-700">
+                                    Tag Hotel / Villa
+                                </label>
+
+                                <div class="flex flex-wrap gap-4">
+
+                                    @foreach($tags as $tag)
+
+                                        <label class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-xl">
+
+                                            <input type="checkbox"
+                                                name="tags[]"
+                                                value="{{ $tag->id }}">
+
+                                            <span>
+                                                {{ $tag->nama }}
+                                            </span>
+
+                                        </label>
+
+                                    @endforeach
+
+                                </div>
+
+                            </div>
+
                             <!-- KANAN -->
                             <div class="col-md-6">
 

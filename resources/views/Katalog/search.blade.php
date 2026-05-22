@@ -31,7 +31,19 @@
             </div>
 
         </div>
+        <div class="flex flex-wrap gap-2 mt-2">
 
+                @foreach($p->tags as $tag)
+
+                    <span class="bg-gray-200 text-xs px-2 py-1 rounded-full">
+
+                        #{{ $tag->nama }}
+
+                    </span>
+
+                @endforeach
+
+            </div>
         @empty
 
         <p>Tidak ada hotel ditemukan.</p>

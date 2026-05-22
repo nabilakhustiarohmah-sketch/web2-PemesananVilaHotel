@@ -5,26 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\Produk;
 use App\Models\FotoProduk;
 use Illuminate\Http\Request;
+use App\Models\Tag;
 
 class KatalogController extends Controller
 {
     // ================== HOME ==================
     public function home()
-    {
-        $hotels = Produk::where('kategori', 'Hotel')
-            ->latest()
-            ->take(6)
-            ->get();
+{
+    $hotels = Produk::with('tags')
+        ->where('kategori', 'hotel')
+        ->latest()
+        ->take(6)
+        ->get();
 
-        $villas = Produk::where('kategori', 'Villa')
-            ->latest()
-            ->take(6)
-            ->get();
+    $villas = Produk::with('tags')
+        ->where('kategori', 'villa')
+        ->latest()
+        ->take(6)
+        ->get();
 
-        $deskripsi = "Temukan hotel dan villa terbaik untuk liburanmu";
+    $deskripsi = "Temukan hotel dan villa terbaik untuk liburanmu";
 
-        return view('home', compact('hotels', 'villas', 'deskripsi'));
-    }
+    return view('home', compact('hotels', 'villas', 'deskripsi'));
+}
 
     // ================== LIST PRODUK ==================
     public function index()
@@ -43,7 +46,7 @@ class KatalogController extends Controller
     // ================== DETAIL ==================
     public function show($id)
     {
-        $data = Produk::with('fotos')->findOrFail($id);
+        $data = Produk::with('fotos', 'tags')->findOrFail($id);
     
         return view('Katalog.show', compact('data'));
     }
@@ -51,7 +54,9 @@ class KatalogController extends Controller
     // ================== FORM TAMBAH ==================
     public function create()
     {
-        return view('tambah_produk');
+        $tags = Tag::all();
+
+        return view('tambah_produk', compact('tags'));
     }
 
     // ================== SIMPAN DATA ==================
@@ -87,6 +92,13 @@ class KatalogController extends Controller
         $produk->foto_utama = $namaUtama;
 
         $produk->save();
+
+        // ================= TAG =================
+        if ($request->tags) {
+
+            $produk->tags()->sync($request->tags);
+
+        }
 
         // ================= FOTO TAMBAHAN =================
         if ($request->hasFile('fotos')) {
@@ -143,9 +155,11 @@ class KatalogController extends Controller
     // ================== HOTEL ==================
     public function hotel()
     {
-        $hotels = Produk::where('kategori', 'Hotel')
-            ->latest()
-            ->get();
+    $hotels = Produk::with('tags')
+                ->where('kategori', 'Hotel')
+                ->latest()
+                ->take(6)
+                ->get();
 
         return view('hotel', compact('hotels'));
     }
@@ -153,16 +167,18 @@ class KatalogController extends Controller
     // ================== VILLA ==================
     public function villa()
     {
-        $villas = Produk::where('kategori', 'Villa')
-            ->latest()
-            ->get();
+        $villas = Produk::with('tags')
+                    ->where('kategori', 'Villas')
+                    ->latest()
+                    ->take(6)
+                    ->get();
 
         return view('villa', compact('villas'));
     }
 
     public function search(Request $request)
 {
-    $query = Produk::query();
+    $query = Produk::with('tags');
 
     // Search lokasi
     if ($request->lokasi) {
@@ -178,5 +194,6 @@ class KatalogController extends Controller
 
     return view('Katalog.search', compact('hasil'));
 }
+
 
 }

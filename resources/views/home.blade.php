@@ -49,7 +49,7 @@
     <div>
         <button type="submit"
                 class="bg-blue-600 text-white px-5 py-2 rounded-lg w-full mt-6">
-            Cari Hotel
+            Cari 
         </button>
     </div>
 
@@ -95,8 +95,18 @@
                     </span>
 
                 </div>
+                <div class="flex flex-wrap gap-2 mt-2">
 
-            </div>
+                        @foreach($p->tags as $tag)
+
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                                #{{ $tag->nama }}
+                            </span>
+
+                        @endforeach
+
+                    </div>
+        </div>
 
         </div>
 
@@ -134,17 +144,29 @@
 
                 <div class="mini-content">
 
-                    <h6>{{ $p->nama }}</h6>
+    <h6>{{ $p->nama }}</h6>
 
-                    <p class="text-gray-500 text-sm">
-                        📍 {{ $p->lokasi }}
-                    </p>
+    <p class="text-gray-500 text-sm">
+        📍 {{ $p->lokasi }}
+    </p>
 
-                    <span>
-                        Rp {{ number_format($p->harga) }}
-                    </span>
+    <div class="flex flex-wrap gap-2 mt-2">
 
-                </div>
+        @foreach($p->tags as $tag)
+
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                #{{ $tag->nama }}
+            </span>
+
+        @endforeach
+
+    </div>
+
+    <span>
+        Rp {{ number_format($p->harga) }}
+    </span>
+
+</div>
 
             </div>
 

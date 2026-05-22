@@ -23,6 +23,18 @@
 
         </div>
 
+        <div class="flex gap-2 mt-4 flex-wrap">
+
+            @foreach($data->tags as $tag)
+
+                <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-sm">
+                    #{{ $tag->nama }}
+                </span>
+
+            @endforeach
+
+        </div>
+
     </div>
 
     <!-- GRID -->
