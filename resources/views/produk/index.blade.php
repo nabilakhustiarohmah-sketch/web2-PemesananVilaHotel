@@ -19,9 +19,9 @@
             Hotel Populer
         </h2>
 
-        <a href="{{ route('hotel.all') }}" 
-            class="text-blue-600 font-semibold">
-                Lihat Semua
+        <a href="{{ route('villa.all') }}" 
+        class="text-blue-600 font-semibold">
+            Lihat Semua
         </a>
 
     </div>
@@ -60,6 +60,22 @@
                 <div class="flex justify-between items-center mt-5">
 
                     <div>
+
+                        <p class="text-gray-500 text-sm">
+                        📍 {{ $p->lokasi }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mt-2">
+
+                        @foreach($p->tags as $tag)
+
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                                #{{ $tag->nama }}
+                            </span>
+
+                        @endforeach
+
+                    </div>
                         <span class="text-blue-600 font-bold text-lg">
                             Rp {{ number_format($p->harga,0,',','.') }}
                         </span>
@@ -68,6 +84,7 @@
                             / malam
                         </p>
                     </div>
+                    
 
                     <div class="flex gap-2">
                         <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
@@ -112,7 +129,7 @@
             Villa Populer
         </h2>
 
-        <a href="{{ route('hotel.all') }}" 
+        <a href="{{ route('villa.all') }}" 
         class="text-blue-600 font-semibold">
             Lihat Semua
         </a>
@@ -152,6 +169,22 @@
                 <div class="flex justify-between items-center mt-5">
 
                     <div>
+                        <p class="text-gray-500 text-sm">
+                        📍 {{ $p->lokasi }}
+                        </p>
+
+                        <div class="flex flex-wrap gap-2 mt-2">
+
+                        @foreach($p->tags as $tag)
+
+                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                                #{{ $tag->nama }}
+                            </span>
+
+                        @endforeach
+
+                    </div>
+
                         <span class="text-blue-600 font-bold text-lg">
                             Rp {{ number_format($p->harga,0,',','.') }}
                         </span>

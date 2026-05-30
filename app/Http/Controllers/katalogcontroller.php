@@ -168,7 +168,7 @@ class KatalogController extends Controller
     public function villa()
     {
         $villas = Produk::with('tags')
-                    ->where('kategori', 'Villas')
+                    ->where('kategori', 'Villa')
                     ->latest()
                     ->take(6)
                     ->get();
@@ -193,6 +193,12 @@ class KatalogController extends Controller
     $hasil = $query->get();
 
     return view('Katalog.search', compact('hasil'));
+}
+
+public function lihatSemua()
+{
+    $produks = Produk::orderBy('created_at', 'desc')->get();
+    return view('produk.lihat_semua', compact('produks'));
 }
 
 

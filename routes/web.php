@@ -36,6 +36,8 @@ Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk
 
 Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
 
+Route::get('/produk/lihat_semua', [KatalogController::class, 'lihatSemua'])->name('produk.lihatSemua');
+
 Route::get('/produk/detail/{id}', [KatalogController::class, 'show'])->name('produk.show');
 
 Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
@@ -49,3 +51,22 @@ Route::get('/villa', [KatalogController::class, 'villa'])->name('villa.all');
 Route::get('/produk/{id}', [KatalogController::class, 'show'])->name('produk.show');
 
 Route::get('/search', [KatalogController::class, 'search'])->name('produk.search');
+
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ProfileController;
+
+Route::get('/', [KatalogController::class, 'home'])->name('home');
+
+Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/register', [AuthController::class, 'registerForm']);
+Route::post('/register', [AuthController::class, 'register']);
+
+
+/* PROFILE */
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+});
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

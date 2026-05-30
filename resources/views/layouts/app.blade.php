@@ -16,6 +16,22 @@
     </style>
 </head>
 
+<script>
+function toggleAvatarMenu() {
+  const menu = document.getElementById('avatarMenu');
+  menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+}
+
+// Klik di luar → tutup menu
+document.addEventListener('click', function(e) {
+  const btn  = document.getElementById('avatarBtn');
+  const menu = document.getElementById('avatarMenu');
+  if (menu && btn && !btn.contains(e.target) && !menu.contains(e.target)) {
+    menu.style.display = 'none';
+  }
+});
+</script>
+
 <body class="bg-gradient-to-br from-blue-50 via-blue-100 to-blue-200 min-h-screen flex flex-col">
 
     {{-- ✅ Navbar --}}
