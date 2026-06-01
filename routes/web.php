@@ -32,15 +32,7 @@ Route::get('/', [KatalogController::class, 'home'])->name('home');
 
 Route::get('/produk', [KatalogController::class, 'index'])->name('produk.index');
 
-Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
-
-Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
-
-Route::get('/produk/lihat_semua', [KatalogController::class, 'lihatSemua'])->name('produk.lihatSemua');
-
 Route::get('/produk/detail/{id}', [KatalogController::class, 'show'])->name('produk.show');
-
-Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
 
 Route::view('/about', 'about');
 
@@ -70,3 +62,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
 });
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Route khusus ADMIN
+Route::middleware(['auth', 'isAdmin'])->group(function () {
+    Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
+    Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
+    Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
+});

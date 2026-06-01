@@ -23,42 +23,102 @@
             <a href="#" class="hover:text-blue-200 transition">Contact</a>
 
             <!-- CTA -->
-            <a href="{{ route('produk.create') }}"
-                class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
-                + Tambah Produk
-            </a>
+        @auth
+            @if(auth()->user()->role === 'admin')
+                <a href="{{ route('produk.create') }}"
+                    class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
+                    + Tambah Produk
+                </a>
+            @endif
+        @endauth
 
 @auth
-  {{-- Avatar dropdown tanpa Alpine.js --}}
-  <div class="relative" style="position:relative;">
-    <button onclick="toggleAvatarMenu()" id="avatarBtn"
-      class="w-9 h-9 rounded-full bg-yellow-400 text-yellow-900 font-semibold text-sm flex items-center justify-center border-2 border-white">
-      {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-    </button>
+<div class="relative">
 
-    <div id="avatarMenu"
-      style="display:none; position:absolute; right:0; top:44px; width:176px; background:white; border:1px solid #e5e7eb; border-radius:12px; padding:4px; z-index:50; box-shadow:0 4px 16px rgba(0,0,0,0.08);">
-      <a href="{{ route('profile') }}"
-        style="display:flex; align-items:center; gap:8px; padding:8px 12px; font-size:13px; color:#374151; text-decoration:none; border-radius:8px;"
-        onmouseover="this.style.background='#f9fafb'" onmouseout="this.style.background='transparent'">
-        Profil Saya
-      </a>
-      <hr style="margin:4px 0; border:none; border-top:1px solid #f3f4f6;">
-      <form method="POST" action="{{ route('logout') }}">
-        @csrf
-        <button type="submit"
-          style="width:100%; text-align:left; display:flex; align-items:center; gap:8px; padding:8px 12px; font-size:13px; color:#dc2626; background:none; border:none; cursor:pointer; border-radius:8px;"
-          onmouseover="this.style.background='#fff5f5'" onmouseout="this.style.background='transparent'">
-          Logout
+    {{-- Avatar --}}
+    @if(auth()->user()->role === 'admin')
+        <button id="avatarBtn" onclick="toggleAvatarMenu()"
+            class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-red-400 text-red-900">
+            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
         </button>
-      </form>
+    @else
+        <button id="avatarBtn" onclick="toggleAvatarMenu()"
+            class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-yellow-400 text-yellow-900">
+            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+        </button>
+    @endif
+
+    {{-- Dropdown Menu --}}
+    <div
+        id="avatarMenu"
+        class="hidden absolute right-0 top-12 w-52 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+
+        {{-- User Info --}}
+        <div class="px-4 py-3 border-b">
+
+            <p class="font-semibold text-gray-800 text-sm">
+                {{ auth()->user()->name }}
+            </p>
+
+        @if(auth()->user()->role === 'admin')
+            <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">
+        @else
+            <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-600">
+        @endif
+
+        </div>
+
+        {{-- Menu --}}
+        <div class="p-2">
+
+            @if(auth()->user()->role === 'admin')
+
+                <a href="{{ route('produk.create') }}"
+                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    ➕ Tambah Produk
+                </a>
+
+                <a href="{{ route('profile') }}"
+                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    👑 Profil Admin
+                </a>
+
+            @else
+
+                <a href="{{ route('profile') }}"
+                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                    👤 Profil Saya
+                </a>
+
+            @endif
+
+            <hr class="my-2">
+
+            {{-- Logout --}}
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+
+                <button
+                    type="submit"
+                    class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 rounded-lg hover:bg-red-50 transition">
+                    🚪 Logout
+                </button>
+
+            </form>
+
+        </div>
+
     </div>
-  </div>
+
+</div>
+
 @else
-  <a href="{{ route('login') }}"
-    class="border border-white text-white px-4 py-2 rounded-lg text-sm hover:bg-white hover:text-blue-600 transition">
+
+<a href="{{ route('login') }}"
+   class="border border-white text-white px-4 py-2 rounded-lg text-sm hover:bg-white hover:text-blue-600 transition">
     Login
-  </a>
+</a>
+
 @endauth
         </div>
 

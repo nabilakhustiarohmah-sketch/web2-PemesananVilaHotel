@@ -30,18 +30,18 @@ class KatalogController extends Controller
 }
 
     // ================== LIST PRODUK ==================
-    public function index()
-    {
-        $hotels = Produk::where('kategori', 'Hotel')
-            ->latest()
-            ->get();
+public function index()
+{
+    $hotels = Produk::where('kategori', 'hotel')
+        ->latest()
+        ->get();
 
-        $villas = Produk::where('kategori', 'Villa')
-            ->latest()
-            ->get();
+    $villas = Produk::where('kategori', 'villa')
+        ->latest()
+        ->get();
 
-        return view('produk.index', compact('hotels', 'villas'));
-    }
+    return view('produk.index', compact('hotels', 'villas'));
+}
 
     // ================== DETAIL ==================
     public function show($id)
@@ -155,20 +155,20 @@ class KatalogController extends Controller
     // ================== HOTEL ==================
     public function hotel()
     {
-    $hotels = Produk::with('tags')
-                ->where('kategori', 'Hotel')
-                ->latest()
-                ->take(6)
-                ->get();
+        $hotels = Produk::with('tags')
+                    ->where('kategori', 'hotel')
+                    ->latest()
+                    ->get();
 
         return view('hotel', compact('hotels'));
     }
+
 
     // ================== VILLA ==================
     public function villa()
     {
         $villas = Produk::with('tags')
-                    ->where('kategori', 'Villa')
+                    ->where('kategori', 'villa')
                     ->latest()
                     ->take(6)
                     ->get();
@@ -194,12 +194,4 @@ class KatalogController extends Controller
 
     return view('Katalog.search', compact('hasil'));
 }
-
-public function lihatSemua()
-{
-    $produks = Produk::orderBy('created_at', 'desc')->get();
-    return view('produk.lihat_semua', compact('produks'));
-}
-
-
 }
