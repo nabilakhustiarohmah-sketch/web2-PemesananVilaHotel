@@ -46,6 +46,7 @@ Route::get('/search', [KatalogController::class, 'search'])->name('produk.search
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Produk;
 
 Route::get('/', [KatalogController::class, 'home'])->name('home');
 
@@ -65,7 +66,51 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route khusus ADMIN
 Route::middleware(['auth', 'isAdmin'])->group(function () {
+
     Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
     Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
     Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
+
+});
+
+// Route khusus USER yang sudah login
+Route::middleware('auth')->group(function () {
+
+    Route::get('/booking/{id}', function ($id) {
+
+        $produk = Produk::findOrFail($id);
+
+        return view('booking', compact('produk'));
+
+    })->name('booking');
+
+    Route::post('/booking/{id}', function ($id) {
+
+        return redirect()
+            ->route('booking', $id)
+            ->with('success', 'Booking berhasil dikirim!');
+
+    })->name('booking.store');
+
+    Route::post('/booking/{id}', function (Illuminate\Http\Request $request, $id) {
+
+    $request->validate([
+        'nama' => 'required',
+        'email' => 'required',
+        'telepon' => 'required',
+        'check_in' => 'required',
+        'check_out' => 'required',
+        'jumlah_tamu' => 'required',
+    ], [
+        'nama.required' => 'Mohon lengkapi datamu!',
+        'email.required' => 'Mohon lengkapi datamu!',
+        'telepon.required' => 'Mohon lengkapi datamu!',
+        'check_in.required' => 'Mohon lengkapi datamu!',
+        'check_out.required' => 'Mohon lengkapi datamu!',
+        'jumlah_tamu.required' => 'Mohon lengkapi datamu!',
+    ]);
+
+    return back()->with('success', 'Booking berhasil!');
+})->name('booking.store');
+
 });

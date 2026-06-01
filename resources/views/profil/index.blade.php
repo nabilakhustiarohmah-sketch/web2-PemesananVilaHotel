@@ -14,7 +14,7 @@
           {{ auth()->user()->name }}
         </h2>
         <span style="background:rgba(255,255,255,0.2); color:white; font-size:12px; padding:3px 12px; border-radius:99px;">
-          👑 Administrator
+          Administrator
         </span>
       </div>
     @else
@@ -65,7 +65,7 @@
           <span style="font-size:13px; font-weight:600; padding:3px 10px; border-radius:99px;
             background:{{ auth()->user()->role === 'admin' ? '#fee2e2' : '#dbeafe' }};
             color:{{ auth()->user()->role === 'admin' ? '#dc2626' : '#2563eb' }};">
-            {{ auth()->user()->role === 'admin' ? '👑 Admin' : '👤 User' }}
+            {{ auth()->user()->role === 'admin' ? 'Admin' : 'User' }}
           </span>
         </div>
       </div>
@@ -79,11 +79,11 @@
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
           <a href="{{ route('produk.create') }}"
             style="font-size:12px; padding:6px 12px; border-radius:8px; background:#dc2626; color:white; text-decoration:none;">
-            ➕ Tambah Produk
+            Tambah Produk
           </a>
           <a href="{{ route('produk.index') }}"
             style="font-size:12px; padding:6px 12px; border-radius:8px; background:white; color:#dc2626; border:1px solid #fca5a5; text-decoration:none;">
-            📋 Kelola Produk
+            Kelola Produk
           </a>
         </div>
       </div>

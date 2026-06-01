@@ -189,11 +189,10 @@
             </div>
 
             <!-- BUTTON -->
-            <button class="w-full bg-blue-600 hover:bg-blue-700 transition text-white py-4 rounded-3xl font-bold shadow-xl text-lg">
-
+            <a href="{{ route('booking', $data->id) }}"
+            class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl transition">
                 Booking Sekarang
-
-            </button>
+            </a>
 
         </div>
 

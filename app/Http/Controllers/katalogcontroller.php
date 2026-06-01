@@ -176,22 +176,23 @@ public function index()
         return view('villa', compact('villas'));
     }
 
-    public function search(Request $request)
+   public function search(Request $request)
 {
     $query = Produk::with('tags');
 
-    // Search lokasi
     if ($request->lokasi) {
         $query->where('lokasi', 'like', '%' . $request->lokasi . '%');
     }
 
-    // Search peserta
     if ($request->peserta) {
         $query->where('kapasitas', '>=', $request->peserta);
     }
 
     $hasil = $query->get();
 
-    return view('Katalog.search', compact('hasil'));
+    $hotels = $hasil->where('kategori', 'hotel');
+    $villas = $hasil->where('kategori', 'villa');
+
+    return view('Katalog.search', compact('hotels', 'villas'));
 }
 }
