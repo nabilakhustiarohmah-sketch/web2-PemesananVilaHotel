@@ -67,6 +67,12 @@
                 <form method="POST" action="{{ route('booking.store', $produk->id) }}">
                 @csrf
 
+                @if ($errors->any())
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-5">
+                        Mohon lengkapi datamu!
+                    </div>
+                @endif
+
                     <div class="grid md:grid-cols-2 gap-5">
 
                         <div>
@@ -74,9 +80,10 @@
                                 Nama Lengkap
                             </label>
 
-                            <input type="text"
-                                   class="w-full border rounded-xl p-3"
-                                   placeholder="Masukkan nama lengkap">
+                        <input type="text"
+                            name="nama"
+                            class="w-full border rounded-xl p-3"
+                            placeholder="Masukkan nama lengkap">
                         </div>
 
                         <div>
@@ -84,9 +91,10 @@
                                 Email
                             </label>
 
-                            <input type="email"
-                                   class="w-full border rounded-xl p-3"
-                                   placeholder="Masukkan email">
+                        <input type="email"
+                            name="email"
+                            class="w-full border rounded-xl p-3"
+                            placeholder="Masukkan email">
                         </div>
 
                     </div>
@@ -96,9 +104,10 @@
                             Nomor Telepon
                         </label>
 
-                        <input type="text"
-                               class="w-full border rounded-xl p-3"
-                               placeholder="08xxxxxxxxxx">
+                    <input type="text"
+                        name="telepon"
+                        class="w-full border rounded-xl p-3"
+                        placeholder="08xxxxxxxxxx">
                     </div>
 
                     <div class="grid md:grid-cols-2 gap-5 mt-5">
@@ -108,18 +117,20 @@
                                 Check In
                             </label>
 
-                            <input type="date"
-                                   class="w-full border rounded-xl p-3">
-                        </div>
+                    <input type="date"
+                        name="check_in"
+                        class="w-full border rounded-xl p-3">
+                    </div>
 
                         <div>
                             <label class="block mb-2 font-medium">
                                 Check Out
                             </label>
 
-                            <input type="date"
-                                   class="w-full border rounded-xl p-3">
-                        </div>
+                    <input type="date"
+                            name="check_out"
+                            class="w-full border rounded-xl p-3">
+                            </div>
 
                     </div>
 
@@ -130,10 +141,11 @@
                                 Jumlah Tamu
                             </label>
 
-                            <input type="number"
-                                   min="1"
-                                   value="1"
-                                   class="w-full border rounded-xl p-3">
+                    <input type="number"
+                        name="jumlah_tamu"
+                        min="1"
+                        value="1"
+                        class="w-full border rounded-xl p-3">
                         </div>
 
                         <div>
@@ -141,12 +153,15 @@
                                 Metode Pembayaran
                             </label>
 
-                            <select class="w-full border rounded-xl p-3">
-                                <option>Transfer Bank</option>
-                                <option>E-Wallet</option>
-                                <option>QRIS</option>
-                                <option>Bayar di Tempat</option>
-                            </select>
+                        <select name="metode_pembayaran"
+                                class="w-full border rounded-xl p-3">
+                            <option value="">Pilih Metode Pembayaran</option>
+                            <option value="Transfer Bank">Transfer Bank</option>
+                            <option value="E-Wallet">E-Wallet</option>
+                            <option value="QRIS">QRIS</option>
+                            <option value="Bayar di Tempat">Bayar di Tempat</option>
+                        </select>
+                            
                         </div>
 
                     </div>
@@ -177,15 +192,9 @@
                     <button type="submit"
                         class="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 rounded-2xl transition">
 
-                        Konfirmasi Booking
+                        Bayar Pesanan
 
                     </button>
-
-                    @if ($errors->any())
-                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-5">
-                    {{ $errors->first() }}
-                </div>
-            @endif
 
                 </form>
 

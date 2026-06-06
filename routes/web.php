@@ -46,6 +46,7 @@ Route::get('/search', [KatalogController::class, 'search'])->name('produk.search
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\BookingController;
 use App\Models\Produk;
 
 Route::get('/', [KatalogController::class, 'home'])->name('home');
@@ -84,33 +85,7 @@ Route::middleware('auth')->group(function () {
 
     })->name('booking');
 
-    Route::post('/booking/{id}', function ($id) {
-
-        return redirect()
-            ->route('booking', $id)
-            ->with('success', 'Booking berhasil dikirim!');
-
-    })->name('booking.store');
-
-    Route::post('/booking/{id}', function (Illuminate\Http\Request $request, $id) {
-
-    $request->validate([
-        'nama' => 'required',
-        'email' => 'required',
-        'telepon' => 'required',
-        'check_in' => 'required',
-        'check_out' => 'required',
-        'jumlah_tamu' => 'required',
-    ], [
-        'nama.required' => 'Mohon lengkapi datamu!',
-        'email.required' => 'Mohon lengkapi datamu!',
-        'telepon.required' => 'Mohon lengkapi datamu!',
-        'check_in.required' => 'Mohon lengkapi datamu!',
-        'check_out.required' => 'Mohon lengkapi datamu!',
-        'jumlah_tamu.required' => 'Mohon lengkapi datamu!',
-    ]);
-
-    return back()->with('success', 'Booking berhasil!');
-})->name('booking.store');
+    Route::post('/booking/{id}', [BookingController::class, 'store'])
+        ->name('booking.store');
 
 });
