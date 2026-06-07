@@ -76,11 +76,6 @@
 
             @if(auth()->user()->role === 'admin')
 
-                <a href="{{ route('produk.create') }}"
-                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                    ➕ Tambah Produk
-                </a>
-
                 <a href="{{ route('profile') }}"
                    class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
                     👑 Profil Admin

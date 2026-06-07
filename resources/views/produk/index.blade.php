@@ -80,8 +80,13 @@
                     @auth
                         @if(auth()->user()->role === 'admin')
                             <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
+                                <a href="{{ route('produk.edit', $p->id) }}"
+                                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-xl text-sm">
+                                    Edit
+                                </a>
+
                                 @csrf
-                                @method('DELETE')
+                                @method('POST')
 
                                 <button type="submit"
                                     onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
@@ -183,8 +188,12 @@
                     @auth
                         @if(auth()->user()->role === 'admin')
                             <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
+                                <a href="{{ route('produk.edit', $p->id) }}"
+                                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-xl text-sm">
+                                    Edit
+                                </a>
                                 @csrf
-                                @method('DELETE')
+                                @method('POST')
 
                                 <button type="submit"
                                     onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"

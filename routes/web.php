@@ -40,8 +40,6 @@ Route::get('/hotel', [KatalogController::class, 'hotel'])->name('hotel.all');
 
 Route::get('/villa', [KatalogController::class, 'villa'])->name('villa.all');
 
-Route::get('/produk/{id}', [KatalogController::class, 'show'])->name('produk.show');
-
 Route::get('/search', [KatalogController::class, 'search'])->name('produk.search');
 
 use App\Http\Controllers\AuthController;
@@ -67,13 +65,20 @@ Route::middleware('auth')->group(function () {
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 // Route khusus ADMIN
-Route::middleware(['auth', 'isAdmin'])->group(function () {
 
-    Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
-    Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
-    Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
+Route::get('/produk', [KatalogController::class, 'index'])->name('produk.index');
 
-});
+Route::get('/produk/tambah', [KatalogController::class, 'create'])->name('produk.create');
+
+Route::post('/produk/simpan', [KatalogController::class, 'store'])->name('produk.store');
+
+Route::get('/produk/{id}/edit', [KatalogController::class, 'edit'])->name('produk.edit');
+
+Route::put('/produk/{id}', [KatalogController::class, 'update'])->name('produk.update');
+
+Route::delete('/produk/{id}', [KatalogController::class, 'destroy'])->name('produk.destroy');
+
+Route::get('/produk/detail/{id}', [KatalogController::class, 'show'])->name('produk.show');
 
 // Route khusus USER yang sudah login
 Route::middleware('auth')->group(function () {

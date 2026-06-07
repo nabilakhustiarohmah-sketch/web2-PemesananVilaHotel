@@ -8,26 +8,36 @@
             <div class="card shadow-lg" style="border-radius: 18px; overflow: hidden; border: none;">
 
                 <!-- HEADER -->
-                    <div style="
-                        background: linear-gradient(135deg, #004aad, #007bff);
-                        color: white;
-                        padding: 28px;
-                        text-align: center;
-                    ">
+                <div style="
+                    background: linear-gradient(135deg, #004aad, #007bff);
+                    color: white;
+                    padding: 28px;
+                    text-align: center;
+                ">
 
-                        <h2 class="mb-1 fw-bold" style="font-size: 28px;">
-                            Tambah Katalog
-                        </h2>
+                    <h2 class="mb-1 fw-bold" style="font-size: 28px;">
+                        {{ isset($produk) ? 'Edit Katalog' : 'Tambah Katalog' }}
+                    </h2>
 
-                        <small style="font-size: 14px; opacity: 0.9;">
-                            Isi data hotel / villa dengan lengkap
-                        </small>
+                    <small style="font-size: 14px; opacity: 0.9;">
+                        {{ isset($produk) ? 'Edit data hotel / villa' : 'Isi data hotel / villa dengan lengkap' }}
+                    </small>
 
-                    </div>
+                </div>
+
                 <div class="card-body p-4">
 
-                    <form action="/produk/simpan" method="POST" enctype="multipart/form-data">
+                    <form 
+                        action="{{ isset($produk) ? route('produk.update', $produk->id) : route('produk.store') }}"
+                        method="POST"
+                        enctype="multipart/form-data"
+                    >
+
                         @csrf
+
+                        @if(isset($produk))
+                            @method('PUT')
+                        @endif
 
                         <div class="row g-3">
 
@@ -36,46 +46,91 @@
 
                                 <div class="section-box">
                                     <label>Nama</label>
-                                    <input type="text" name="nama" class="form-control" required>
+
+                                    <input 
+                                        type="text"
+                                        name="nama"
+                                        class="form-control"
+                                        value="{{ old('nama', $produk->nama ?? '') }}"
+                                        required
+                                    >
                                 </div>
 
                                 <div class="section-box">
                                     <label>Kategori</label>
+
                                     <select name="kategori" class="form-control" required>
-                                        <option>Hotel</option>
-                                        <option>Villa</option>
+
+                                        <option value="hotel"
+                                            {{ old('kategori', $produk->kategori ?? '') == 'hotel' ? 'selected' : '' }}>
+                                            Hotel
+                                        </option>
+
+                                        <option value="villa"
+                                            {{ old('kategori', $produk->kategori ?? '') == 'villa' ? 'selected' : '' }}>
+                                            Villa
+                                        </option>
+
                                     </select>
                                 </div>
 
                                 <div class="section-box">
                                     <label>Lokasi</label>
-                                    <input type="text" name="lokasi" class="form-control" placeholder="Bali, Indonesia" required>
+
+                                    <input 
+                                        type="text"
+                                        name="lokasi"
+                                        class="form-control"
+                                        placeholder="Bali, Indonesia"
+                                        value="{{ old('lokasi', $produk->lokasi ?? '') }}"
+                                        required
+                                    >
                                 </div>
 
                                 <div class="section-box">
                                     <label>Kapasitas</label>
-                                    <input type="number" name="kapasitas" class="form-control" required>
+
+                                    <input 
+                                        type="number"
+                                        name="kapasitas"
+                                        class="form-control"
+                                        value="{{ old('kapasitas', $produk->kapasitas ?? '') }}"
+                                        required
+                                    >
                                 </div>
 
                                 <div class="section-box">
                                     <label>Harga / Malam</label>
-                                    <input type="number" name="harga" class="form-control" required>
+
+                                    <input 
+                                        type="number"
+                                        name="harga"
+                                        class="form-control"
+                                        value="{{ old('harga', $produk->harga ?? '') }}"
+                                        required
+                                    >
                                 </div>
 
                                 <div class="section-box">
                                     <label>Fasilitas</label>
-                                    <textarea name="fasilitas"
+
+                                    <textarea
+                                        name="fasilitas"
                                         class="form-control"
                                         rows="4"
-                                        placeholder="Wifi/n, Kolam Renang, AC, Parkir"></textarea>
+                                        placeholder="Wifi, Kolam Renang, AC, Parkir"
+                                    >{{ old('fasilitas', $produk->fasilitas ?? '') }}</textarea>
                                 </div>
 
                                 <div class="section-box">
                                     <label>Tipe Kamar</label>
-                                    <textarea name="tipe_kamar"
+
+                                    <textarea
+                                        name="tipe_kamar"
                                         class="form-control"
                                         rows="4"
-                                        placeholder="Kamar Queen Smart, Kamar Twin Smart"></textarea>
+                                        placeholder="Kamar Queen Smart, Kamar Twin Smart"
+                                    >{{ old('tipe_kamar', $produk->tipe_kamar ?? '') }}</textarea>
                                 </div>
 
                             </div>
@@ -93,9 +148,15 @@
 
                                         <label class="flex items-center gap-2 bg-gray-100 px-3 py-2 rounded-xl">
 
-                                            <input type="checkbox"
+                                            <input 
+                                                type="checkbox"
                                                 name="tags[]"
-                                                value="{{ $tag->id }}">
+                                                value="{{ $tag->id }}"
+
+                                                @if(isset($produk) && $produk->tags->contains($tag->id))
+                                                    checked
+                                                @endif
+                                            >
 
                                             <span>
                                                 {{ $tag->nama }}
@@ -114,14 +175,26 @@
 
                                 <!-- FOTO UTAMA -->
                                 <div class="upload-card">
+
                                     <label>Foto Utama</label>
-                                    <input type="file" name="foto_utama" id="fotoUtama" hidden>
+
+                                    <input 
+                                        type="file"
+                                        name="foto_utama"
+                                        id="fotoUtama"
+                                        hidden
+                                    >
 
                                     <label for="fotoUtama" class="upload-area">
+
                                         <i class="bi bi-image"></i>
+
                                         <span>Pilih Foto Utama</span>
+
                                         <small id="namaUtama"></small>
+
                                     </label>
+
                                 </div>
 
                                 <!-- FOTO TAMBAHAN -->
@@ -129,20 +202,22 @@
 
                                     <label>Foto Tambahan</label>
 
-                                    <input 
-                                        type="file" 
-                                        name="fotos[]" 
+                                    <input
+                                        type="file"
+                                        name="fotos[]"
                                         id="fotoTambahan"
                                         multiple
                                         hidden
                                     >
 
                                     <label for="fotoTambahan" class="upload-area">
+
                                         <i class="bi bi-images"></i>
 
                                         <span>Pilih Banyak Foto</span>
 
                                         <small id="namaTambahan"></small>
+
                                     </label>
 
                                 </div>
@@ -151,7 +226,7 @@
 
                         </div>
 
-                       <!-- BUTTON -->
+                        <!-- BUTTON -->
                         <div class="d-flex justify-content-center mt-4 gap-3">
 
                             <a href="/produk" class="btn-custom btn-cancel">
@@ -159,7 +234,7 @@
                             </a>
 
                             <button type="submit" class="btn-custom btn-save">
-                                Simpan
+                                {{ isset($produk) ? 'Update' : 'Simpan' }}
                             </button>
 
                         </div>
@@ -274,9 +349,11 @@ document.getElementById('fotoUtama').addEventListener('change', function () {
 document.getElementById('fotoTambahan').addEventListener('change', function () {
     let files = this.files;
     let text = "";
+
     for (let i = 0; i < files.length; i++) {
         text += files[i].name + " ";
     }
+
     document.getElementById('namaTambahan').innerText = text;
 });
 </script>

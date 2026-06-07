@@ -163,6 +163,14 @@ public function index()
         return view('hotel', compact('hotels'));
     }
 
+    public function edit($id)
+{
+    $produk = Produk::findOrFail($id);
+
+    $tags = Tag::all();
+
+    return view('tambah_produk', compact('produk', 'tags'));
+}
 
     // ================== VILLA ==================
     public function villa()

@@ -77,10 +77,6 @@
       <div style="background:#fef2f2; border-radius:12px; padding:12px; border:1px solid #fecaca;">
         <p style="font-size:12px; color:#991b1b; font-weight:600; margin:0 0 8px;">Menu Admin</p>
         <div style="display:flex; gap:8px; flex-wrap:wrap;">
-          <a href="{{ route('produk.create') }}"
-            style="font-size:12px; padding:6px 12px; border-radius:8px; background:#dc2626; color:white; text-decoration:none;">
-            Tambah Produk
-          </a>
           <a href="{{ route('produk.index') }}"
             style="font-size:12px; padding:6px 12px; border-radius:8px; background:white; color:#dc2626; border:1px solid #fca5a5; text-decoration:none;">
             Kelola Produk
