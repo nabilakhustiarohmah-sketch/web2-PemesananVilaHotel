@@ -56,7 +56,7 @@ document.addEventListener('click', function(e) {
     {{-- ✅ Footer --}}
     @include('partials.footer')
 
-    <a href="https://wa.me/6281234567890"
+    <a href="https://wa.me/6285729578735"
    target="_blank"
    class="floating-contact">
 
