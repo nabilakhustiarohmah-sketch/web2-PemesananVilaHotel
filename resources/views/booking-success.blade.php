@@ -31,7 +31,7 @@
             </p>
 
             <h2 class="text-2xl font-bold tracking-widest">
-                VLH-{{ rand(100000,999999) }}
+                VLH-{{ rand(000,1000) }}
             </h2>
 
         </div>
@@ -44,37 +44,37 @@
 
                 <div>
                     <b>Nama</b><br>
-                    {{ $nama }}
+                    {{ $booking->nama }}
                 </div>
 
                 <div>
                     <b>Email</b><br>
-                    {{ $email }}
+                    {{ $booking->email }}
                 </div>
 
                 <div>
                     <b>Telepon</b><br>
-                    {{ $telepon }}
+                    {{ $booking->telepon }}
                 </div>
 
                 <div>
                     <b>Jumlah Tamu</b><br>
-                    {{ $jumlah_tamu }}
+                    {{ $booking->jumlah_tamu }}
                 </div>
 
                 <div>
                     <b>Check In</b><br>
-                    {{ $check_in }}
+                    {{ $booking->check_in }}
                 </div>
 
                 <div>
                     <b>Check Out</b><br>
-                    {{ $check_out }}
+                    {{ $booking->check_out }}
                 </div>
 
                 <div>
                     <b>Pembayaran</b><br>
-                    {{ $metode }}
+                    {{ $booking->metode_pembayaran }}
                 </div>
 
                 <div>

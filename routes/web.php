@@ -48,6 +48,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookingController;
 use App\Models\Produk;
+use App\Models\Booking;
 
 Route::get('/', [KatalogController::class, 'home'])->name('home');
 
@@ -76,16 +77,26 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
 
 // Route khusus USER yang sudah login
 Route::middleware('auth')->group(function () {
-
     Route::get('/booking/{id}', function ($id) {
-
         $produk = Produk::findOrFail($id);
-
         return view('booking', compact('produk'));
-
     })->name('booking');
 
     Route::post('/booking/{id}', [BookingController::class, 'store'])
         ->name('booking.store');
-
 });
+
+Route::middleware('auth')->group(function () {
+    Route::get('/riwayat-booking',
+        [BookingController::class, 'history'])
+        ->name('booking.history');
+
+    Route::get('/booking/struk/{id}',
+    [BookingController::class, 'receipt'])
+    ->name('booking.receipt');
+});
+
+Route::get('/booking-success/{id}', function ($id) {
+    $booking = Booking::findOrFail($id);
+    return view('booking-success', compact('booking'));
+})->name('booking.success');

@@ -8,19 +8,22 @@
 
         <!-- Menu Desktop -->
         <div class="hidden md:flex items-center space-x-6 font-medium">
-            <a href="{{ route('home') }}" class="hover:text-blue-200 transition">Home</a>
+            <a href="{{ route('home') }}" class="hover:text-blue-200 transition">Rumah</a>
 
             <a href="{{ route('produk.index') }}"
                class="hover:text-blue-200 transition">
                Produk
             </a>
 
+            <a href="{{ route('booking.history') }}"
+                class="hover:text-blue-200 transition">
+                Riwayat
+            </a>
+
             <!-- FIXED -->
             <a href="{{ url('/about') }}" class="hover:text-blue-200 transition">
                 About
             </a>
-
-            <a href="#" class="hover:text-blue-200 transition">Contact</a>
 
             <!-- CTA -->
         @auth
@@ -130,18 +133,20 @@
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2">
-        <a href="{{ route('home') }}" class="block">Home</a>
+        <a href="{{ route('home') }}" class="block">Rumah</a>
 
         <a href="{{ route('produk.index') }}" class="block">
             Produk
         </a>
 
+        <a href="{{ route('booking.history') }}" class="block">
+            Riwayat
+        </a>
+       
         <!-- FIXED -->
         <a href="{{ url('/about') }}" class="block">
             About
         </a>
-
-        <a href="#" class="block">Contact</a>
 
         <a href="{{ route('produk.create') }}"
            class="block bg-white text-blue-700 px-3 py-2 rounded">
