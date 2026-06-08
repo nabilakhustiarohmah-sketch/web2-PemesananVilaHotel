@@ -208,6 +208,7 @@ public function update(Request $request, $id)
 {
     $produk = Produk::findOrFail($id);
 
+    // update data utama
     $produk->update([
         'nama' => $request->nama,
         'kategori' => $request->kategori,
@@ -218,9 +219,15 @@ public function update(Request $request, $id)
         'tipe_kamar' => $request->tipe_kamar,
     ]);
 
-    return redirect()
-        ->route('produk.index')
-        ->with('success', 'Data berhasil diupdate');
+    // update tags
+    if ($request->has('tags')) {
+        $produk->tags()->sync($request->tags);
+    } else {
+        $produk->tags()->detach();
+    }
+
+    return redirect('/produk')
+        ->with('success', 'Produk berhasil diupdate');
 }
 
 }
