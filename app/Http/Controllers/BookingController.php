@@ -49,6 +49,15 @@ public function history()
     return view('riwayatbooking', compact('bookings'));
 }
 
+public function pesananMasuk()
+{
+    $bookings = Booking::with(['produk','user'])
+        ->latest()
+        ->get();
+
+    return view('admin.pesanan-masuk', compact('bookings'));
+}
+
     /**
      * Tampilkan halaman struk booking.
      */

@@ -15,10 +15,25 @@
                Produk
             </a>
 
+        @auth
+
+        @if(auth()->user()->role === 'admin')
+
+            <a href="{{ route('booking.admin') }}"
+            class="hover:text-blue-200 transition">
+                Pesanan Masuk
+            </a>
+
+        @else
+
             <a href="{{ route('booking.history') }}"
-                class="hover:text-blue-200 transition">
+            class="hover:text-blue-200 transition">
                 Riwayat
             </a>
+
+        @endif
+
+@endauth
 
             <!-- FIXED -->
             <a href="{{ url('/about') }}" class="hover:text-blue-200 transition">

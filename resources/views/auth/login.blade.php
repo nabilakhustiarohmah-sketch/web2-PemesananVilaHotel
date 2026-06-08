@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Account</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
@@ -19,6 +20,7 @@
                      fill="none"
                      viewBox="0 0 24 24"
                      stroke="currentColor">
+
                     <path stroke-linecap="round"
                           stroke-linejoin="round"
                           stroke-width="2"
@@ -48,6 +50,7 @@
             <!-- Email -->
             <div>
                 <label class="text-sm text-gray-600">Email</label>
+
                 <input
                     type="email"
                     name="email"
@@ -60,6 +63,7 @@
             <!-- Password -->
             <div>
                 <label class="text-sm text-gray-600">Password</label>
+
                 <input
                     type="password"
                     name="password"
@@ -71,33 +75,42 @@
 
             <!-- Remember -->
             <div class="flex justify-between items-center text-sm">
+
                 <label class="flex items-center gap-2">
                     <input type="checkbox" class="accent-blue-600">
                     Remember me
                 </label>
 
                 <a href="/forgot-password" class="text-blue-600 hover:underline">
-                   Lupa Password?
+                    Lupa Password?
                 </a>
+
             </div>
 
-            <!-- Button -->
+            <!-- Button Login -->
             <button
                 type="submit"
                 class="w-full bg-blue-600 text-white py-3 rounded-xl font-semibold hover:bg-blue-700 transition duration-300 shadow-lg hover:shadow-xl">
+
                 Login
+
             </button>
+
         </form>
 
         <!-- Register -->
         <div class="text-center mt-6">
+
             <p class="text-gray-600">
                 Belum punya akun?
+
                 <a href="/register"
                    class="text-blue-600 font-semibold hover:underline">
                     Register
                 </a>
+
             </p>
+
         </div>
 
     </div>

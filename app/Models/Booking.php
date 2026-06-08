@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Produk;
 
 class Booking extends Model
 {
@@ -24,5 +26,10 @@ class Booking extends Model
     public function produk()
     {
         return $this->belongsTo(Produk::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

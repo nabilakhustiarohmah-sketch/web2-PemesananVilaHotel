@@ -186,11 +186,6 @@
 
 </div>
 
-<!-- CONTACT -->
-<a href="https://wa.me/6281234567890" class="floating-contact">
-    💬
-</a>
-
 <style>
 
 body{
@@ -426,61 +421,12 @@ body{
         width: 100%;
         border-radius: 20px;
     }
-
-}
-
-/* CONTACT */
-
-.floating-contact{
-    position: fixed;
-
-    right: 25px;
-    bottom: 25px;
-
-    width: 70px;
-    height: 70px;
-
-    background: #25D366;
-    color: white;
-
-    border-radius: 50%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    text-decoration: none;
-
-    font-size: 35px;
-
-    box-shadow: 0 10px 25px rgba(0,0,0,.2);
-
-    z-index: 9999;
-
-    animation: float 3s ease-in-out infinite;
-
-    transition: .3s;
-}
-
-.floating-contact:hover{
-    transform: scale(1.1);
-}
-
-@keyframes float{
-
-    0%{
-        transform: translateY(0);
-    }
-
-    50%{
-        transform: translateY(-10px);
-    }
-
-    100%{
-        transform: translateY(0);
-    }
-
 }
 </style>
 
+<a href="https://wa.me/6285729578735"
+   target="_blank"
+   class="floating-contact">
+    <i class="fab fa-whatsapp"></i>
+</a>
 @endsection

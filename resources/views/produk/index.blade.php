@@ -79,21 +79,18 @@
 
                     @auth
                         @if(auth()->user()->role === 'admin')
-                            <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
-                                <a href="{{ route('produk.edit', $p->id) }}"
-                                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-xl text-sm">
-                                    Edit
-                                </a>
-
-                                @csrf
-                                @method('POST')
+                            <div class="mt-4 flex justify-end gap-2">
+                            <a href="{{ route('produk.edit', $p->id) }}"
+                                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-xl text-sm font-medium transition">
+                                Edit
+                            </a>
 
                                 <button type="submit"
-                                    onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-xl text-sm">
-                                    Hapus
+                                onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
+                                class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                                Hapus
                                 </button>
-                            </form>
+                            </div>
                         @endif
                     @endauth
 
@@ -187,20 +184,18 @@
 
                     @auth
                         @if(auth()->user()->role === 'admin')
-                            <form action="{{ route('produk.destroy', $p->id) }}" method="POST">
-                                <a href="{{ route('produk.edit', $p->id) }}"
-                                    class="bg-yellow-400 hover:bg-yellow-500 text-white px-3 py-2 rounded-xl text-sm">
-                                    Edit
-                                </a>
-                                @csrf
-                                @method('POST')
+                            <div class="mt-4 flex justify-end gap-2">
+                            <a href="{{ route('produk.edit', $p->id) }}"
+                                class="bg-blue-700 hover:bg-blue-800 text-white px-4 py-2 rounded-xl text-sm font-medium transition">
+                                Edit
+                            </a>
 
                                 <button type="submit"
-                                    onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
-                                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-xl text-sm">
-                                    Hapus
+                                onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
+                                class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                                Hapus
                                 </button>
-                            </form>
+                            </div>
                         @endif
                     @endauth
 
@@ -223,3 +218,13 @@
 </div>
 
 @endsection
+
+<style>
+.btn-action{
+    min-width: 80px;
+    text-align: center;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 8px 16px;
+}
+</style>

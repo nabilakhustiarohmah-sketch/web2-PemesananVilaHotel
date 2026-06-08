@@ -105,3 +105,7 @@ Route::get('/booking-success/{id}', function ($id) {
     $booking = Booking::findOrFail($id);
     return view('booking-success', compact('booking'));
 })->name('booking.success');
+
+Route::get('/admin/pesanan',
+    [BookingController::class, 'pesananMasuk'])
+    ->name('booking.admin');
