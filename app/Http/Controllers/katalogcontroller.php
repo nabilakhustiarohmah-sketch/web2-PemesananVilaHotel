@@ -203,4 +203,24 @@ public function index()
 
     return view('Katalog.search', compact('hotels', 'villas'));
 }
+
+public function update(Request $request, $id)
+{
+    $produk = Produk::findOrFail($id);
+
+    $produk->update([
+        'nama' => $request->nama,
+        'kategori' => $request->kategori,
+        'lokasi' => $request->lokasi,
+        'kapasitas' => $request->kapasitas,
+        'harga' => $request->harga,
+        'fasilitas' => $request->fasilitas,
+        'tipe_kamar' => $request->tipe_kamar,
+    ]);
+
+    return redirect()
+        ->route('produk.index')
+        ->with('success', 'Data berhasil diupdate');
+}
+
 }
