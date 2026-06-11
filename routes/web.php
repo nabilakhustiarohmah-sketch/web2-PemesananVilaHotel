@@ -109,3 +109,7 @@ Route::get('/booking-success/{id}', function ($id) {
 Route::get('/admin/pesanan',
     [BookingController::class, 'pesananMasuk'])
     ->name('booking.admin');
+use App\Http\Controllers\CaptchaController;
+
+// Wajib tambahkan ->name('captcha.image') agar tidak error di blade
+Route::get('/captcha-image', [CaptchaController::class, 'generateImage'])->name('captcha.image');
