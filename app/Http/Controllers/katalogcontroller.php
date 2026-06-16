@@ -90,7 +90,6 @@ public function index()
     $produk->foto_utama = $namaUtama;
 
     $produk->save();
-    dd($request->all(), $request->file('fotos'));
 
     // TAG
     if ($request->tags) {
@@ -213,6 +212,17 @@ public function update(Request $request, $id)
         'fasilitas' => $request->fasilitas,
         'tipe_kamar' => $request->tipe_kamar,
     ]);
+
+    if ($request->hasFile('foto_utama')) {
+
+    $fotoUtama = $request->file('foto_utama');
+
+    $namaUtama = time().'_utama.'.$fotoUtama->getClientOriginalExtension();
+
+    $fotoUtama->move(public_path('images'), $namaUtama);
+
+    $produk->foto_utama = $namaUtama;
+  }
 
     if ($request->hasFile('fotos')) {
 

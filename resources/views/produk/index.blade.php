@@ -44,18 +44,21 @@
                         ⭐ 4.9
                     </div>
 
-                    @auth
-                    <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
-                        @csrf
+                @auth
+                    @if(auth()->user()->role !== 'admin')
 
-                        <button type="submit"
-                            class="bg-white w-10 h-10 rounded-full shadow flex items-center justify-center">
+                        <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                            @csrf
 
-                            ❤️
+                            <button type="submit"
+                                class="bg-pink-500 hover:bg-pink-600 text-white px-3 py-2 rounded-xl text-sm">
+                                ❤️ Favorit
+                            </button>
 
-                        </button>
-                    </form>
-                    @endauth
+                        </form>
+
+                    @endif
+                @endauth
                 </div>
             </div>
 
