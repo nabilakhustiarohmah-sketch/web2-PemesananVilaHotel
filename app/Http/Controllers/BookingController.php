@@ -42,18 +42,17 @@ public function store(Request $request, $id)
 
 public function history()
 {
-    $bookings = Booking::where('user_id', auth()->id())
+    $bookings = Booking::with('produk')
+        ->where('user_id', auth()->id())
         ->latest()
         ->get();
-
-    dd($bookings);
 
     return view('riwayatbooking', compact('bookings'));
 }
 
 public function pesananMasuk()
 {
-    $bookings = Booking::with(['produk','user'])
+    $bookings = Booking::with(['produk', 'user'])
         ->latest()
         ->get();
 

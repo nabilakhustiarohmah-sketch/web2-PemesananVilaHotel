@@ -93,9 +93,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
     Route::get('/riwayat-booking',
-        [BookingController::class, 'history']
-        )->middleware('auth')
+        [BookingController::class, 'history'])
         ->name('booking.history');
 
     Route::get('/booking/struk/{id}',
@@ -108,9 +108,13 @@ Route::get('/booking-success/{id}', function ($id) {
     return view('booking-success', compact('booking'));
 })->name('booking.success');
 
-Route::get('/admin/pesanan',
-    [BookingController::class, 'pesananMasuk'])
-    ->name('booking.admin');
+Route::middleware('auth')->group(function () {
+
+    Route::get('/admin/pesanan',
+        [BookingController::class, 'pesananMasuk'])
+        ->name('booking.admin');
+
+});
 
 
 // Wajib tambahkan ->name('captcha.image') agar tidak error di blade
