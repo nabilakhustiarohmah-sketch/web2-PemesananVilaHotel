@@ -122,4 +122,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])
         ->name('favorite.toggle');
 
+    Route::get('/favorit', [FavoriteController::class, 'index'])
+        ->name('favorit.index');
+    
+    Route::delete('/favorite/{id}', [FavoriteController::class, 'destroy'])
+    ->name('favorite.delete');
 });

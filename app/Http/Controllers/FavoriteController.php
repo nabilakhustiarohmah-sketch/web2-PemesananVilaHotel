@@ -24,4 +24,14 @@ class FavoriteController extends Controller
 
         return back();
     }
+    public function index()
+    {
+        $favorites = Favorite::with('produk')
+            ->where('user_id', auth()->id())
+            ->get();
+
+        return view('favorit.index', compact('favorites'));
+    }
+
+    
 }

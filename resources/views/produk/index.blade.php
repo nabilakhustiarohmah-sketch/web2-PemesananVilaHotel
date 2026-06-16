@@ -38,27 +38,24 @@
                 </a>
                 </a>
 
-                <div class="absolute top-3 right-3">
+                <div class="absolute top-3 right-3 flex flex-col gap-2 items-end">
 
                     <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
                         ⭐ 4.9
                     </div>
 
-                @auth
-                    @if(auth()->user()->role !== 'admin')
+                    @auth
+                        @if(auth()->user()->role !== 'admin')
+                            <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:scale-110 transition">
+                                    <span class="text-pink-500 text-lg">❤</span>
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
 
-                        <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
-                            @csrf
-
-                            <button type="submit"
-                                class="bg-pink-500 hover:bg-pink-600 text-white px-3 py-2 rounded-xl text-sm">
-                                ❤️ Favorit
-                            </button>
-
-                        </form>
-
-                    @endif
-                @endauth
                 </div>
             </div>
 
@@ -170,8 +167,24 @@
                     class="w-full h-58 object-cover">
                 </a>
 
-                <div class="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
-                    ⭐ 4.9
+                <div class="absolute top-3 right-3 flex flex-col gap-2 items-end">
+
+                    <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
+                        ⭐ 4.9
+                    </div>
+
+                    @auth
+                        @if(auth()->user()->role !== 'admin')
+                            <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                                @csrf
+                                <button type="submit"
+                                    class="w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center hover:scale-110 transition">
+                                    <span class="text-pink-500 text-lg">❤</span>
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
+
                 </div>
 
             </div>

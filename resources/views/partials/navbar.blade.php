@@ -35,111 +35,111 @@
 
 @endauth
 
-            <!-- FIXED -->
-            <a href="{{ url('/about') }}" class="hover:text-blue-200 transition">
-                About
-            </a>
+<!-- FIXED -->
+<a href="{{ url('/about') }}" class="hover:text-blue-200 transition">
+    About
+</a>
 
-            <!-- CTA -->
-        @auth
-            @if(auth()->user()->role === 'admin')
-                <a href="{{ route('produk.create') }}"
-                    class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
-                    + Tambah Produk
-                </a>
-            @endif
-        @endauth
-
+<!-- CTA -->
 @auth
-<div class="relative">
 
-    {{-- Avatar --}}
     @if(auth()->user()->role === 'admin')
-        <button id="avatarBtn" onclick="toggleAvatarMenu()"
-            class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-red-400 text-red-900">
-            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-        </button>
-    @else
-        <button id="avatarBtn" onclick="toggleAvatarMenu()"
-            class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-yellow-400 text-yellow-900">
-            {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
-        </button>
+        <a href="{{ route('produk.create') }}"
+            class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
+            + Tambah Produk
+        </a>
     @endif
 
-    {{-- Dropdown Menu --}}
-    <div
-        id="avatarMenu"
-        class="hidden absolute right-0 top-12 w-52 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+    <!-- FAVORITE -->
+    <a href="{{ route('favorit.index') }}"
+       class="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-red-500 transition"
+       title="Favorit">
+        <i class="fas fa-heart text-white"></i>
+    </a>
 
-        {{-- User Info --}}
-        <div class="px-4 py-3 border-b">
+    <div class="relative">
 
-            <p class="font-semibold text-gray-800 text-sm">
-                {{ auth()->user()->name }}
-            </p>
-
+        {{-- Avatar --}}
         @if(auth()->user()->role === 'admin')
-            <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">
+            <button id="avatarBtn" onclick="toggleAvatarMenu()"
+                class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-red-400 text-red-900">
+                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+            </button>
         @else
-            <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-600">
+            <button id="avatarBtn" onclick="toggleAvatarMenu()"
+                class="w-10 h-10 rounded-full border-2 border-white flex items-center justify-center font-semibold text-sm bg-yellow-400 text-yellow-900">
+                {{ strtoupper(substr(auth()->user()->name, 0, 2)) }}
+            </button>
         @endif
 
-        </div>
+        {{-- Dropdown Menu --}}
+        <div
+            id="avatarMenu"
+            class="hidden absolute right-0 top-12 w-52 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
 
-        {{-- Menu --}}
-        <div class="p-2">
+            <div class="px-4 py-3 border-b">
 
-            @if(auth()->user()->role === 'admin')
+                <p class="font-semibold text-gray-800 text-sm">
+                    {{ auth()->user()->name }}
+                </p>
 
-                <a href="{{ route('profile') }}"
-                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                    👑 Profil Admin
-                </a>
+                @if(auth()->user()->role === 'admin')
+                    <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-red-100 text-red-600">
+                        Admin
+                    </span>
+                @else
+                    <span class="inline-block mt-1 text-xs px-2 py-1 rounded-full bg-blue-100 text-blue-600">
+                        User
+                    </span>
+                @endif
 
-            @else
+            </div>
 
-                <a href="{{ route('profile') }}"
-                   class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
-                    👤 Profil Saya
-                </a>
+            <div class="p-2">
 
-            @endif
+                @if(auth()->user()->role === 'admin')
 
-            <hr class="my-2">
+                    <a href="{{ route('profile') }}"
+                       class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                        👑 Profil Admin
+                    </a>
 
-            {{-- Logout --}}
-            <form method="POST" action="{{ route('logout') }}">
-                @csrf
+                @else
 
-                <button
-                    type="submit"
-                    class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 rounded-lg hover:bg-red-50 transition">
-                    🚪 Logout
-                </button>
+                    <a href="{{ route('profile') }}"
+                       class="flex items-center gap-2 px-3 py-2 text-sm text-gray-700 rounded-lg hover:bg-gray-100 transition">
+                        👤 Profil Saya
+                    </a>
 
-            </form>
+                @endif
+
+                <hr class="my-2">
+
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <button
+                        type="submit"
+                        class="w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 rounded-lg hover:bg-red-50 transition">
+                        🚪 Logout
+                    </button>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 @else
 
-<a href="{{ route('login') }}"
-   class="border border-white text-white px-4 py-2 rounded-lg text-sm hover:bg-white hover:text-blue-600 transition">
-    Login
-</a>
+    <a href="{{ route('login') }}"
+       class="border border-white text-white px-4 py-2 rounded-lg text-sm hover:bg-white hover:text-blue-600 transition">
+        Login
+    </a>
 
 @endauth
-        </div>
-
-        <!-- Mobile Button -->
-        <button id="menuBtn" class="md:hidden text-2xl">
-            ☰
-        </button>
-    </div>
 
     <!-- Mobile Menu -->
     <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2">
@@ -153,15 +153,27 @@
             Riwayat
         </a>
        
-        <!-- FIXED -->
-        <a href="{{ url('/about') }}" class="block">
-            About
-        </a>
+<!-- FIXED -->
+<a href="{{ url('/about') }}" class="block">
+    About
+</a>
 
+@auth
+<a href="{{ route('favorit.index') }}" class="block">
+    ❤️ Favorit
+</a>
+@endauth
+
+
+<!-- CTA -->
+@auth
+    @if(auth()->user()->role === 'admin')
         <a href="{{ route('produk.create') }}"
-           class="block bg-white text-blue-700 px-3 py-2 rounded">
-           + Tambah Produk
+            class="bg-white text-blue-700 px-4 py-2 rounded-lg font-semibold hover:bg-blue-100 transition">
+            + Tambah Produk
         </a>
+    @endif
+@endauth
 
     </div>
 </nav>

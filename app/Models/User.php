@@ -7,8 +7,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Favorite;
-use App\Models\Favorite as ModelsFavorite;
-use App\Models\Favorite as AppModelsFavorite;
 
 class User extends Authenticatable
 {
@@ -31,9 +29,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-     public function favorites()
+    public function favorites()
     {
         return $this->hasMany(Favorite::class);
     }
 }
-
