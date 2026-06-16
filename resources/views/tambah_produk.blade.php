@@ -347,8 +347,17 @@
 </style>
 
 <!-- SCRIPT -->
-<!-- SCRIPT -->
 <script>
+
+// FOTO UTAMA
+document.getElementById('fotoUtama').addEventListener('change', function () {
+
+    document.getElementById('namaUtama').innerText =
+        this.files[0]?.name ?? '';
+
+});
+
+// FOTO TAMBAHAN + PREVIEW
 document.getElementById('fotoTambahan').addEventListener('change', function () {
 
     const files = this.files;
@@ -356,9 +365,14 @@ document.getElementById('fotoTambahan').addEventListener('change', function () {
 
     preview.innerHTML = "";
 
+    let text = "";
+
     for (let i = 0; i < files.length; i++) {
 
+        text += files[i].name + " ";
+
         let img = document.createElement('img');
+
         img.src = URL.createObjectURL(files[i]);
 
         img.style.width = "70px";
@@ -369,7 +383,10 @@ document.getElementById('fotoTambahan').addEventListener('change', function () {
         preview.appendChild(img);
     }
 
+    document.getElementById('namaTambahan').innerText = text;
+
 });
+
 </script>
 
 @endsection
