@@ -64,7 +64,7 @@
         <h2 class="fw-bold">Hotel Populer</h2>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+   <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
 
         @foreach($hotels as $p)
 
@@ -74,8 +74,9 @@
 
                 <div class="mini-img">
                     <a href="{{ route('produk.show', $p->id) }}" class="blok">
-                        <img src="{{ asset('images/'.$p->foto) }}">
-                    </a>
+                        <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}">
+                </a>
+
                     <div class="rating">
                         ⭐ 4.9
                     </div>
@@ -84,29 +85,31 @@
 
                 <div class="mini-content">
 
-                    <h6>{{ $p->nama }}</h6>
+    <h6>{{ $p->nama }}</h6>
 
-                    <p class="text-gray-500 text-sm">
-                        📍 {{ $p->lokasi }}
-                    </p>
+    <p class="text-gray-500 text-sm">
+        📍 {{ $p->lokasi }}
+    </p>
 
-                    <span>
-                        Rp {{ number_format($p->harga) }}
-                    </span>
+    <div class="flex flex-wrap gap-2 mt-2">
 
-                </div>
-                <div class="flex flex-wrap gap-2 mt-2">
+        @foreach($p->tags as $tag)
 
-                        @foreach($p->tags as $tag)
+            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
+                #{{ $tag->nama }}
+            </span>
 
-                            <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
-                                #{{ $tag->nama }}
-                            </span>
+        @endforeach
 
-                        @endforeach
+    </div>
 
-                    </div>
-        </div>
+    <span>
+        Rp {{ number_format($p->harga) }}
+    </span>
+
+</div>
+
+            </div>
 
         </div>
 
@@ -115,6 +118,7 @@
     </div>
 
 </div>
+
 
 <!-- VILLA -->
 <div class="container pb-5">
@@ -133,7 +137,7 @@
 
                 <div class="mini-img">
                     <a href="{{ route('produk.show', $p->id) }}" class="blok">
-                        <img src="{{ asset('images/'.$p->foto) }}">
+                        <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}">
                 </a>
 
                     <div class="rating">

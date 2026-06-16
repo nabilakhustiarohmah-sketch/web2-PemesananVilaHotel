@@ -32,14 +32,30 @@
 
             <div class="relative">
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ asset('images/' . ($p->foto ?? 'default.jpg')) }}" 
+                    <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
                             alt="{{ $p->nama }}" 
                             class="w-full h-58 object-cover">
                 </a>
                 </a>
 
-                <div class="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
-                    ⭐ 4.9
+                <div class="absolute top-3 right-3">
+
+                    <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
+                        ⭐ 4.9
+                    </div>
+
+                    @auth
+                    <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                        @csrf
+
+                        <button type="submit"
+                            class="bg-white w-10 h-10 rounded-full shadow flex items-center justify-center">
+
+                            ❤️
+
+                        </button>
+                    </form>
+                    @endauth
                 </div>
             </div>
 
@@ -85,11 +101,20 @@
                                 Edit
                             </a>
 
-                                <button type="submit"
-                                onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
-                                class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
-                                Hapus
-                                </button>
+                                <form action="{{ route('produk.destroy', $p->id) }}" 
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus {{ $p->nama }}?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                                        Hapus
+                                    </button>
+
+                                </form>
+                                
                             </div>
                         @endif
                     @endauth
@@ -137,7 +162,7 @@
             <div class="relative">
 
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ asset('images/' . ($p->foto ?? 'default.jpg')) }}" 
+                    <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
                     alt="{{ $p->nama }}" 
                     class="w-full h-58 object-cover">
                 </a>
@@ -190,11 +215,19 @@
                                 Edit
                             </a>
 
-                                <button type="submit"
-                                onclick="return confirm('Yakin ingin menghapus {{ $p->nama }}?')"
-                                class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
-                                Hapus
-                                </button>
+                                <form action="{{ route('produk.destroy', $p->id) }}" 
+                                    method="POST"
+                                    onsubmit="return confirm('Yakin ingin menghapus {{ $p->nama }}?')">
+
+                                    @csrf
+                                    @method('DELETE')
+
+                                    <button type="submit"
+                                        class="bg-gray-100 hover:bg-red-50 text-red-600 border border-red-200 px-4 py-2 rounded-xl text-sm font-medium transition">
+                                        Hapus
+                                    </button>
+
+                                </form>
                             </div>
                         @endif
                     @endauth

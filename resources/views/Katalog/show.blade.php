@@ -49,7 +49,7 @@
             <!-- FOTO UTAMA -->
             <div class="overflow-hidden rounded-3xl shadow-xl">
 
-                <img src="{{ asset('images/'.$data->foto) }}"
+                <img src="{{ asset('images/' . ($data->foto_utama ?? $data->foto ?? 'default.jpg')) }}"
                     class="w-full h-[500px] object-cover">
 
             </div>
@@ -58,10 +58,11 @@
             <div class="flex gap-4 mt-5 overflow-x-auto pb-2">
                 @foreach($data->fotos as $foto)
 
-                <img src="{{ asset('images/' . $foto->foto) }}"
-                    class="w-full h-40 object-cover rounded-lg">
+            <img src="{{ asset('images/' . $foto->foto) }}"
+                class="w-56 h-56 object-cover rounded-lg flex-shrink-0">
 
-                @endforeach
+            @endforeach
+
 
             </div>
 

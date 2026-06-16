@@ -59,67 +59,62 @@ public function index()
         return view('tambah_produk', compact('tags'));
     }
 
-    // ================== SIMPAN DATA ==================
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required',
-            'kategori' => 'required',
-            'lokasi' => 'required',
-            'kapasitas' => 'required',
-            'harga' => 'required',
-            'foto_utama' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-        ]);
+   public function store(Request $request)
+{
+    $request->validate([
+        'nama' => 'required',
+        'kategori' => 'required',
+        'lokasi' => 'required',
+        'kapasitas' => 'required',
+        'harga' => 'required',
+        'foto_utama' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+        'fotos.*' => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+        'tipe_kamar' => $request->kategori == 'hotel'
+            ? 'required'
+            : 'nullable',
+    ]);
 
-        // ================= SIMPAN PRODUK =================
-        $produk = new Produk();
+    $produk = new Produk();
+    $produk->nama = $request->nama;
+    $produk->kategori = $request->kategori;
+    $produk->lokasi = $request->lokasi;
+    $produk->kapasitas = $request->kapasitas;
+    $produk->harga = $request->harga;
+    $produk->fasilitas = $request->fasilitas;
+    $produk->tipe_kamar = $request->tipe_kamar;
 
-        $produk->nama = $request->nama;
-        $produk->kategori = $request->kategori;
-        $produk->lokasi = $request->lokasi;
-        $produk->kapasitas = $request->kapasitas;
-        $produk->harga = $request->harga;
-        $produk->fasilitas = $request->fasilitas;
-        $produk->tipe_kamar = $request->tipe_kamar;
+    // FOTO UTAMA
+    $fotoUtama = $request->file('foto_utama');
+    $namaUtama = time() . '_utama.' . $fotoUtama->getClientOriginalExtension();
+    $fotoUtama->move(public_path('images'), $namaUtama);
+    $produk->foto_utama = $namaUtama;
 
-        // ================= FOTO UTAMA =================
-        $fotoUtama = $request->file('foto_utama');
+    $produk->save();
+    dd($request->all(), $request->file('fotos'));
 
-        $namaUtama = time() . '_utama.' . $fotoUtama->getClientOriginalExtension();
-
-        $fotoUtama->move(public_path('images'), $namaUtama);
-
-        $produk->foto_utama = $namaUtama;
-
-        $produk->save();
-
-        // ================= TAG =================
-        if ($request->tags) {
-
-            $produk->tags()->sync($request->tags);
-
-        }
-
-        // ================= FOTO TAMBAHAN =================
-        if ($request->hasFile('fotos')) {
-
-            foreach ($request->file('fotos') as $file) {
-
-                $namaFoto = time() . '_' . $file->getClientOriginalName();
-
-                $file->move(public_path('images'), $namaFoto);
-
-                FotoProduk::create([
-                    'produk_id' => $produk->id,
-                    'foto' => $namaFoto
-                ]);
-            }
-        }
-
-        return redirect('/produk')
-            ->with('success', 'Produk berhasil ditambahkan');
+    // TAG
+    if ($request->tags) {
+        $produk->tags()->sync($request->tags);
     }
 
+    // FOTO TAMBAHAN (INI YANG SEKARANG AKAN JALAN)
+    if ($request->hasFile('fotos')) {
+
+        foreach ($request->file('fotos') as $file) {
+
+            $namaFoto = uniqid() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('images'), $namaFoto);
+
+            FotoProduk::create([
+                'produk_id' => $produk->id,
+                'foto' => $namaFoto
+            ]);
+        }
+    }
+
+    return redirect('/produk')
+        ->with('success', 'Produk berhasil ditambahkan');
+}
     // ================== HAPUS ==================
     public function destroy($id)
     {
@@ -218,6 +213,20 @@ public function update(Request $request, $id)
         'fasilitas' => $request->fasilitas,
         'tipe_kamar' => $request->tipe_kamar,
     ]);
+
+    if ($request->hasFile('fotos')) {
+
+    foreach ($request->file('fotos') as $file) {
+
+        $namaFoto = uniqid() . '_' . $file->getClientOriginalName();
+        $file->move(public_path('images'), $namaFoto);
+
+        FotoProduk::create([
+            'produk_id' => $produk->id,
+            'foto' => $namaFoto
+        ]);
+    }
+}
 
     // update tags
     if ($request->has('tags')) {

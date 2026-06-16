@@ -48,6 +48,7 @@ use App\Http\Controllers\BookingController;
 use App\Models\Produk;
 use App\Models\Booking;
 
+
 Route::get('/', [KatalogController::class, 'home'])->name('home');
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
@@ -109,7 +110,16 @@ Route::get('/booking-success/{id}', function ($id) {
 Route::get('/admin/pesanan',
     [BookingController::class, 'pesananMasuk'])
     ->name('booking.admin');
-use App\Http\Controllers\CaptchaController;
+
 
 // Wajib tambahkan ->name('captcha.image') agar tidak error di blade
-Route::get('/captcha-image', [CaptchaController::class, 'generateImage'])->name('captcha.image');
+Route::get('/captcha-image', [AuthController::class, 'generateImage'])->name('captcha.image');
+
+use App\Http\Controllers\FavoriteController;
+
+Route::middleware('auth')->group(function () {
+
+    Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])
+        ->name('favorite.toggle');
+
+});

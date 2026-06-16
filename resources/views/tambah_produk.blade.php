@@ -198,6 +198,7 @@
                                 </div>
 
                                 <!-- FOTO TAMBAHAN -->
+
                                 <div class="upload-card mt-3">
 
                                     <label>Foto Tambahan</label>
@@ -214,11 +215,16 @@
 
                                         <i class="bi bi-images"></i>
 
-                                        <span>Pilih Banyak Foto</span>
+                                        <span>Klik untuk pilih banyak foto</span>
+
+                                        <small>CTRL / SHIFT untuk pilih sekaligus</small>
 
                                         <small id="namaTambahan"></small>
 
                                     </label>
+
+                                </div>
+                                <div id="preview" style="display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;"></div>
 
                                 </div>
 
@@ -341,20 +347,28 @@
 </style>
 
 <!-- SCRIPT -->
+<!-- SCRIPT -->
 <script>
-document.getElementById('fotoUtama').addEventListener('change', function () {
-    document.getElementById('namaUtama').innerText = this.files[0]?.name ?? '';
-});
-
 document.getElementById('fotoTambahan').addEventListener('change', function () {
-    let files = this.files;
-    let text = "";
+
+    const files = this.files;
+    let preview = document.getElementById('preview');
+
+    preview.innerHTML = "";
 
     for (let i = 0; i < files.length; i++) {
-        text += files[i].name + " ";
+
+        let img = document.createElement('img');
+        img.src = URL.createObjectURL(files[i]);
+
+        img.style.width = "70px";
+        img.style.height = "70px";
+        img.style.objectFit = "cover";
+        img.style.borderRadius = "8px";
+
+        preview.appendChild(img);
     }
 
-    document.getElementById('namaTambahan').innerText = text;
 });
 </script>
 
