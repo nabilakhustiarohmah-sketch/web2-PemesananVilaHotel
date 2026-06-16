@@ -42,15 +42,11 @@ public function store(Request $request, $id)
 
 public function history()
 {
-    dd(
-        auth()->id(),
-        auth()->user()->name,
-        auth()->user()->email
-    );
-
     $bookings = Booking::where('user_id', auth()->id())
         ->latest()
         ->get();
+
+    dd($bookings);
 
     return view('riwayatbooking', compact('bookings'));
 }
