@@ -123,3 +123,6 @@ Route::middleware('auth')->group(function () {
         ->name('favorite.toggle');
 
 });
+Route::get('/forgot-password', function () {
+    return view('forgot-password');
+});
