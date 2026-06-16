@@ -94,7 +94,8 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/riwayat-booking',
-        [BookingController::class, 'history'])
+        [BookingController::class, 'history']
+        )->middleware('auth')
         ->name('booking.history');
 
     Route::get('/booking/struk/{id}',

@@ -37,7 +37,7 @@
 
 <!-- FIXED -->
 <a href="{{ url('/about') }}" class="hover:text-blue-200 transition">
-    About
+    Tentang
 </a>
 
 <!-- CTA -->
