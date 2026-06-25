@@ -52,4 +52,16 @@ $app->singleton(
 |
 */
 $app->useStoragePath('/tmp/storage');
+$app->bootstrapPath('/tmp/bootstrap');
+
+// Copy bootstrap cache jika belum ada
+if (!file_exists('/tmp/bootstrap/cache/services.php')) {
+    $source = __DIR__ . '/cache';
+    if (is_dir($source)) {
+        foreach (glob($source . '/*.php') as $file) {
+            copy($file, '/tmp/bootstrap/cache/' . basename($file));
+        }
+    }
+}
+
 return $app;
