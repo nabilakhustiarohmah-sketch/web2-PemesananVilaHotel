@@ -52,7 +52,10 @@ use App\Models\Produk;
 use App\Models\Booking;
 
 
-Route::get('/', [KatalogController::class, 'home'])->name('home');
+//Route::get('/', [KatalogController::class, 'home'])->name('home');
+Route::get('/', function () {
+    return 'TEST BERHASIL';
+});
 
 Route::get('/login', [AuthController::class, 'loginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
