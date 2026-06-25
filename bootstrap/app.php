@@ -5,7 +5,8 @@ $app = new Illuminate\Foundation\Application(
 );
 
 $app->useStoragePath('/tmp/storage');
-$app->useBootstrapPath('/tmp/bootstrap');
+
+// HAPUS baris useBootstrapPath — tidak perlu
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
