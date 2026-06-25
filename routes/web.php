@@ -125,3 +125,7 @@ Route::middleware('auth')->group(function () {
 Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
+
+Route::get('/test', function () {
+    return 'Laravel berjalan';
+});
