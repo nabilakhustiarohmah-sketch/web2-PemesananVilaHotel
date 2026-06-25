@@ -24,23 +24,22 @@
                 Pesanan Masuk
             </a>
 
-        @else
+@else
 
-            <a href="{{ route('booking.history') }}"
-            class="hover:text-blue-200 transition">
-                Riwayat
-            </a>
+    <a href="{{ route('booking.history') }}"
+    class="hover:text-blue-200 transition">
+        Riwayat
+    </a>
 
-        @endif
+    <a href="{{ route('favorite.index') }}"
+       class="relative hover:text-blue-200 transition flex items-center gap-1">
+        ❤️ Favorit
+    </a>
+
+@endif
 
 @endauth
 
-            <!-- FIXED -->
-            <a href="{{ url('/about') }}" class="hover:text-blue-200 transition">
-                About
-            </a>
-
-            <!-- CTA -->
         @auth
             @if(auth()->user()->role === 'admin')
                 <a href="{{ route('produk.create') }}"
@@ -151,11 +150,6 @@
 
         <a href="{{ route('booking.history') }}" class="block">
             Riwayat
-        </a>
-       
-        <!-- FIXED -->
-        <a href="{{ url('/about') }}" class="block">
-            About
         </a>
 
         <a href="{{ route('produk.create') }}"

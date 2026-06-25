@@ -118,11 +118,10 @@ Route::get('/captcha-image', [AuthController::class, 'generateImage'])->name('ca
 use App\Http\Controllers\FavoriteController;
 
 Route::middleware('auth')->group(function () {
-
-    Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])
-        ->name('favorite.toggle');
-
+    Route::get('/favorite', [FavoriteController::class, 'index'])->name('favorite.index');
+    Route::post('/favorite/{id}', [FavoriteController::class, 'toggle'])->name('favorite.toggle');
 });
+
 Route::get('/forgot-password', function () {
     return view('forgot-password');
 });

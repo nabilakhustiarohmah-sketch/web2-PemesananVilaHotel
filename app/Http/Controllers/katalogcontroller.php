@@ -40,7 +40,14 @@ public function index()
         ->latest()
         ->get();
 
-    return view('produk.index', compact('hotels', 'villas'));
+    $favoriteIds = [];
+    if (auth()->check()) {
+        $favoriteIds = \App\Models\Favorite::where('user_id', auth()->id())
+            ->pluck('produk_id')
+            ->toArray();
+    }
+
+    return view('produk.index', compact('hotels', 'villas', 'favoriteIds'));
 }
 
     // ================== DETAIL ==================
