@@ -27,6 +27,9 @@ Route::get('/khobirsastrawan', function () {
 
 
 use App\Http\Controllers\KatalogController;
+Route::get('/', function () {
+    return 'Website berhasil berjalan di Vercel';
+});
 
 Route::get('/', [KatalogController::class, 'home'])->name('home');
 
