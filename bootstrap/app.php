@@ -4,9 +4,9 @@ $app = new Illuminate\Foundation\Application(
     $_ENV['APP_BASE_PATH'] ?? dirname(__DIR__)
 );
 
-$app->useStoragePath('/tmp/storage');
-
-// HAPUS baris useBootstrapPath — tidak perlu
+if (isset($_ENV['VERCEL']) || getenv('VERCEL')) {
+    $app->useStoragePath('/tmp/storage');
+}
 
 $app->singleton(
     Illuminate\Contracts\Http\Kernel::class,
