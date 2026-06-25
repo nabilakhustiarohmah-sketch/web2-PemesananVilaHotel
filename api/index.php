@@ -21,9 +21,4 @@ foreach ($dirs as $dir) {
     }
 }
 
-// Override path storage dan bootstrap cache
-$_ENV['APP_STORAGE_PATH'] = '/tmp/storage';
-
-define('LARAVEL_START', microtime(true));
-
 require __DIR__ . '/../public/index.php';
