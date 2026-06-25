@@ -18,4 +18,15 @@ foreach ($dirs as $dir) {
     }
 }
 
+// Paksa clear cached services agar tidak pakai cache rusak
+$cachedServices = __DIR__ . '/../bootstrap/cache/services.php';
+if (file_exists($cachedServices)) {
+    unlink($cachedServices);
+}
+
+$cachedPackages = __DIR__ . '/../bootstrap/cache/packages.php';
+if (file_exists($cachedPackages)) {
+    unlink($cachedPackages);
+}
+
 require __DIR__ . '/../public/index.php';
