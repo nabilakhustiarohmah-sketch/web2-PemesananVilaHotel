@@ -1,6 +1,8 @@
 <?php
 
 $dirs = [
+    __DIR__ . '/../bootstrap/cache',
+
     '/tmp/storage',
     '/tmp/storage/app',
     '/tmp/storage/app/public',
@@ -17,16 +19,3 @@ foreach ($dirs as $dir) {
         mkdir($dir, 0775, true);
     }
 }
-
-// Paksa clear cached services agar tidak pakai cache rusak
-$cachedServices = __DIR__ . '/../bootstrap/cache/services.php';
-if (file_exists($cachedServices)) {
-    unlink($cachedServices);
-}
-
-$cachedPackages = __DIR__ . '/../bootstrap/cache/packages.php';
-if (file_exists($cachedPackages)) {
-    unlink($cachedPackages);
-}
-
-require __DIR__ . '/../public/index.php';
