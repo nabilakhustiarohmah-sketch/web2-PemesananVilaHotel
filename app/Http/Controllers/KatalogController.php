@@ -241,6 +241,15 @@ public function villa()
     return view('Katalog.search', compact('hotels', 'villas'));
 }
 
+
+public function edit($id)
+{
+    $produk = Produk::findOrFail($id);
+    $tags = Tag::all();
+
+    return view('tambah_produk', compact('produk', 'tags'));
+}
+
 public function update(Request $request, $id)
 {
     $produk = Produk::findOrFail($id);
