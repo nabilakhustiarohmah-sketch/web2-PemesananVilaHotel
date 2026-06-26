@@ -6,27 +6,40 @@ use App\Models\Produk;
 use App\Models\FotoProduk;
 use Illuminate\Http\Request;
 use App\Models\Tag;
+use App\Models\Favorite;
+use Illuminate\Support\Facades\Auth;
 
 class KatalogController extends Controller
 {
     // ================== HOME ==================
-    public function home()
+   public function home()
 {
-    $hotels = Produk::with('tags')
-        ->where('kategori', 'hotel')
+    $hotels = Produk::where('kategori', 'hotel')
         ->latest()
         ->take(6)
         ->get();
 
-    $villas = Produk::with('tags')
-        ->where('kategori', 'villa')
+    $villas = Produk::where('kategori', 'villa')
         ->latest()
         ->take(6)
         ->get();
 
-    $deskripsi = "Temukan hotel dan villa terbaik untuk liburanmu";
+    $favoriteIds = [];
 
-    return view('home', compact('hotels', 'villas', 'deskripsi'));
+    if (Auth::check()) {
+        $favoriteIds = Favorite::where('user_id', Auth::id())
+            ->pluck('produk_id')
+            ->toArray();
+    }
+
+    return view('home', compact(
+        'hotels',
+        'villas',
+        'favoriteIds'
+    ))->with([
+        'deskripsi' => 'Temukan hotel dan villa terbaik untuk liburanmu'
+    ]);
+
 }
 
     // ================== LIST PRODUK ==================
@@ -49,14 +62,25 @@ public function index()
 
     return view('produk.index', compact('hotels', 'villas', 'favoriteIds'));
 }
+////DETAIL
 
-    // ================== DETAIL ==================
-    public function show($id)
-    {
-        $data = Produk::with('fotos', 'tags')->findOrFail($id);
-    
-        return view('Katalog.show', compact('data'));
+public function show($id)
+{
+    $data = Produk::with('fotos', 'tags')->findOrFail($id);
+
+    $isFavorited = false;
+
+    if (Auth::check()) {
+        $isFavorited = Favorite::where('user_id', Auth::id())
+            ->where('produk_id', $id)
+            ->exists();
     }
+
+    return view('Katalog.show', compact(
+        'data',
+        'isFavorited'
+    ));
+}
 
     // ================== FORM TAMBAH ==================
     public function create()
@@ -154,36 +178,48 @@ public function index()
     }
 
     // ================== HOTEL ==================
-    public function hotel()
-    {
-        $hotels = Produk::with('tags')
-                    ->where('kategori', 'hotel')
-                    ->latest()
-                    ->get();
+public function hotel()
+{
+    $hotels = Produk::with('tags')
+                ->where('kategori', 'hotel')
+                ->latest()
+                ->get();
 
-        return view('hotel', compact('hotels'));
+    $favoriteIds = [];
+
+    if (Auth::check()) {
+        $favoriteIds = Favorite::where('user_id', Auth::id())
+            ->pluck('produk_id')
+            ->toArray();
     }
 
-    public function edit($id)
-{
-    $produk = Produk::findOrFail($id);
-
-    $tags = Tag::all();
-
-    return view('tambah_produk', compact('produk', 'tags'));
+    return view('hotel', compact(
+        'hotels',
+        'favoriteIds'
+    ));
 }
 
     // ================== VILLA ==================
-    public function villa()
-    {
-        $villas = Produk::with('tags')
-                    ->where('kategori', 'villa')
-                    ->latest()
-                    ->take(6)
-                    ->get();
+public function villa()
+{
+    $villas = Produk::with('tags')
+                ->where('kategori', 'villa')
+                ->latest()
+                ->get();
 
-        return view('villa', compact('villas'));
+    $favoriteIds = [];
+
+    if (Auth::check()) {
+        $favoriteIds = Favorite::where('user_id', Auth::id())
+            ->pluck('produk_id')
+            ->toArray();
     }
+
+    return view('villa', compact(
+        'villas',
+        'favoriteIds'
+    ));
+}
 
    public function search(Request $request)
 {

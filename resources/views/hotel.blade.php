@@ -12,9 +12,46 @@
 
 <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
 
-    <a href="{{ route('produk.show', $p->id) }}" class="blok">
-       <img src="{{ asset('images/'.$p->foto) }}">
-    </a>
+    <div class="relative">
+
+        <a href="{{ route('produk.show', $p->id) }}" class="block">
+            <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
+                 class="w-full h-52 object-cover">
+        </a>
+
+        {{-- FAVORIT --}}
+                    @auth
+                        @if(auth()->user()->role !== 'admin')
+                            <form action="{{ route('favorite.toggle', $p->id) }}"
+                                method="POST"
+                                class="absolute top-3 left-3 z-10">
+                                @csrf
+
+                                <button type="submit"
+                                    class="group flex items-center gap-1
+                                        {{ in_array($p->id, $favoriteIds ?? [])
+                                            ? 'bg-pink-500 text-white border-pink-500'
+                                            : 'bg-white/90 text-pink-500 border-pink-300' }}
+                                        backdrop-blur hover:bg-pink-500 hover:text-white
+                                        border px-3 py-1.5 rounded-full text-sm font-semibold
+                                        shadow transition-all duration-200">
+
+                                    <span class="group-hover:scale-110 transition-transform">❤️</span>
+
+                                    {{ in_array($p->id, $favoriteIds ?? [])
+                                        ? 'Tersimpan'
+                                        : 'Favorit' }}
+                                </button>
+                            </form>
+                        @endif
+                    @endauth
+
+        {{-- RATING --}}
+        <div class="absolute top-3 right-3 bg-white px-3 py-1 rounded-full text-sm shadow">
+            ⭐ 4.9
+        </div>
+
+    </div>
 
     <div class="p-4">
 
@@ -27,19 +64,15 @@
         </p>
 
         <div class="flex flex-wrap gap-2 mt-3">
-
             @foreach($p->tags as $tag)
-
                 <span class="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded-full">
                     #{{ $tag->nama }}
                 </span>
-
             @endforeach
-
         </div>
 
         <p class="text-blue-600 font-bold text-lg mt-3">
-            Rp {{ number_format($p->harga, 0, ',', '.') }}
+            Rp {{ number_format($p->harga,0,',','.') }}
         </p>
 
         <p class="text-xs text-gray-400">

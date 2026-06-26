@@ -21,6 +21,23 @@
                 ⭐ 4.8
             </span>
 
+        @auth
+            @if(auth()->user()->role !== 'admin')
+            <form action="{{ route('favorite.toggle', $data->id) }}" method="POST">
+                @csrf
+
+                <button type="submit"
+                    class="px-4 py-2 rounded-full border transition
+                    {{ $isFavorited
+                        ? 'bg-pink-500 text-white border-pink-500'
+                        : 'bg-white text-pink-500 border-pink-300' }}">
+
+                    {{ $isFavorited ? '❤️ Tersimpan' : '🤍 Favorit' }}
+                </button>
+            </form>
+            @endif
+            @endauth
+
         </div>
 
         <div class="flex gap-2 mt-4 flex-wrap">

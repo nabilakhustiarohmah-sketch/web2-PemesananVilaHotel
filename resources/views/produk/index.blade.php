@@ -30,31 +30,38 @@
                          class="w-full h-52 object-cover">
                 </a>
 
-                <div class="absolute top-3 right-3 flex flex-col items-end gap-1">
-                    <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
-                        ⭐ 4.9
+                    <div class="absolute top-3 right-3">
+                        <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
+                            ⭐ 4.9
+                        </div>
                     </div>
 
                     @auth
                         @if(auth()->user()->role !== 'admin')
-                            <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                            <form action="{{ route('favorite.toggle', $p->id) }}"
+                                method="POST"
+                                class="absolute top-3 left-3 z-10">
                                 @csrf
+
                                 <button type="submit"
-                                    class="group flex items-center gap-1 
-                                        {{ in_array($p->id, $favoriteIds) 
-                                            ? 'bg-pink-500 text-white border-pink-500' 
+                                    class="group flex items-center gap-1
+                                        {{ in_array($p->id, $favoriteIds ?? [])
+                                            ? 'bg-pink-500 text-white border-pink-500'
                                             : 'bg-white/90 text-pink-500 border-pink-300' }}
-                                        backdrop-blur hover:bg-pink-500 hover:text-white 
-                                        border px-3 py-1.5 rounded-full text-sm font-semibold 
+                                        backdrop-blur hover:bg-pink-500 hover:text-white
+                                        border px-3 py-1.5 rounded-full text-sm font-semibold
                                         shadow transition-all duration-200">
+
                                     <span class="group-hover:scale-110 transition-transform">❤️</span>
-                                    {{ in_array($p->id, $favoriteIds) ? 'Tersimpan' : 'Favorit' }}
+
+                                    {{ in_array($p->id, $favoriteIds ?? [])
+                                        ? 'Tersimpan'
+                                        : 'Favorit' }}
                                 </button>
                             </form>
                         @endif
                     @endauth
                 </div>
-            </div>{{-- ✅ TUTUP .relative --}}
 
             <div class="p-5">
                 <h3 class="text-lg font-bold text-gray-800">{{ $p->nama }}</h3>
@@ -127,32 +134,38 @@
                          class="w-full h-52 object-cover">
                 </a>
 
-                <div class="absolute top-3 right-3 flex flex-col items-end gap-1">
-                    <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
-                        ⭐ 4.9
+                    <div class="absolute top-3 right-3">
+                        <div class="bg-white px-3 py-1 rounded-full text-sm font-semibold shadow">
+                            ⭐ 4.9
+                        </div>
                     </div>
 
-                    {{-- ✅ TAMBAHAN TOMBOL FAVORIT VILLA --}}
-                   @auth
+                    @auth
                         @if(auth()->user()->role !== 'admin')
-                            <form action="{{ route('favorite.toggle', $p->id) }}" method="POST">
+                            <form action="{{ route('favorite.toggle', $p->id) }}"
+                                method="POST"
+                                class="absolute top-3 left-3 z-10">
                                 @csrf
+
                                 <button type="submit"
-                                    class="group flex items-center gap-1 
-                                        {{ in_array($p->id, $favoriteIds) 
-                                            ? 'bg-pink-500 text-white border-pink-500' 
+                                    class="group flex items-center gap-1
+                                        {{ in_array($p->id, $favoriteIds ?? [])
+                                            ? 'bg-pink-500 text-white border-pink-500'
                                             : 'bg-white/90 text-pink-500 border-pink-300' }}
-                                        backdrop-blur hover:bg-pink-500 hover:text-white 
-                                        border px-3 py-1.5 rounded-full text-sm font-semibold 
+                                        backdrop-blur hover:bg-pink-500 hover:text-white
+                                        border px-3 py-1.5 rounded-full text-sm font-semibold
                                         shadow transition-all duration-200">
+
                                     <span class="group-hover:scale-110 transition-transform">❤️</span>
-                                    {{ in_array($p->id, $favoriteIds) ? 'Tersimpan' : 'Favorit' }}
+
+                                    {{ in_array($p->id, $favoriteIds ?? [])
+                                        ? 'Tersimpan'
+                                        : 'Favorit' }}
                                 </button>
                             </form>
                         @endif
                     @endauth
                 </div>
-            </div>{{-- ✅ TUTUP .relative --}}
 
             <div class="p-5">
                 <h3 class="text-lg font-bold text-gray-800">{{ $p->nama }}</h3>

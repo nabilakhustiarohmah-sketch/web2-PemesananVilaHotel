@@ -81,6 +81,32 @@
                         ⭐ 4.9
                     </div>
 
+                    @auth
+                        @if(auth()->user()->role !== 'admin')
+                            <form action="{{ route('favorite.toggle', $p->id) }}"
+                            method="POST"
+                            class="absolute top-3 left-3 z-10">
+                            @csrf
+
+                            <button type="submit"
+                                class="group flex items-center gap-1
+                                    {{ in_array($p->id, $favoriteIds ?? [])
+                                        ? 'bg-pink-500 text-white border-pink-500'
+                                        : 'bg-white/90 text-pink-500 border-pink-300' }}
+                                    backdrop-blur hover:bg-pink-500 hover:text-white
+                                    border px-3 py-1.5 rounded-full text-sm font-semibold
+                                    shadow transition-all duration-200">
+
+                                <span class="group-hover:scale-110 transition-transform">❤️</span>
+
+                                {{ in_array($p->id, $favoriteIds ?? [])
+                                    ? 'Tersimpan'
+                                    : 'Favorit' }}
+                            </button>
+                        </form>
+                        @endif
+                    @endauth
+
                 </div>
 
                 <div class="mini-content">
@@ -143,6 +169,32 @@
                     <div class="rating">
                         ⭐ 4.9
                     </div>
+
+                  @auth
+                    @if(auth()->user()->role !== 'admin')
+                        <form action="{{ route('favorite.toggle', $p->id) }}"
+                            method="POST"
+                            class="absolute top-3 left-3 z-10">
+                            @csrf
+
+                            <button type="submit"
+                                class="group flex items-center gap-1
+                                    {{ in_array($p->id, $favoriteIds ?? [])
+                                        ? 'bg-pink-500 text-white border-pink-500'
+                                        : 'bg-white/90 text-pink-500 border-pink-300' }}
+                                    backdrop-blur hover:bg-pink-500 hover:text-white
+                                    border px-3 py-1.5 rounded-full text-sm font-semibold
+                                    shadow transition-all duration-200">
+
+                                <span class="group-hover:scale-110 transition-transform">❤️</span>
+
+                                {{ in_array($p->id, $favoriteIds ?? [])
+                                    ? 'Tersimpan'
+                                    : 'Favorit' }}
+                            </button>
+                        </form>
+                        @endif
+                    @endauth
 
                 </div>
 
