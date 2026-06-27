@@ -127,7 +127,7 @@
 
             <div class="relative">
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ $data->foto_utama }}">>
+                    <img src="{{ $p->foto_utama }}">
                 </a>
 
                     <div class="absolute top-3 right-3">
