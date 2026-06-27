@@ -257,26 +257,16 @@ public function update(Request $request, $id)
     ]);
 
     if ($request->hasFile('foto_utama')) {
+    $produk->foto_utama = cloudinary()->upload($request->file('foto_utama')->getRealPath())->getSecurePath();
+    $produk->save();
+}
 
-    $fotoUtama = $request->file('foto_utama');
-
-    $namaUtama = time().'_utama.'.$fotoUtama->getClientOriginalExtension();
-
-    $fotoUtama->move(public_path('images'), $namaUtama);
-
-    $produk->foto_utama = $namaUtama;
-  }
-
-    if ($request->hasFile('fotos')) {
-
+if ($request->hasFile('fotos')) {
     foreach ($request->file('fotos') as $file) {
-
-        $namaFoto = uniqid() . '_' . $file->getClientOriginalName();
-        $file->move(public_path('images'), $namaFoto);
-
+        $urlFoto = cloudinary()->upload($file->getRealPath())->getSecurePath();
         FotoProduk::create([
             'produk_id' => $produk->id,
-            'foto' => $namaFoto
+            'foto' => $urlFoto
         ]);
     }
 }
