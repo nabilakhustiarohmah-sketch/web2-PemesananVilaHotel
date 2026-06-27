@@ -259,8 +259,9 @@ public function update(Request $request, $id)
     ]);
 
     if ($request->hasFile('foto_utama')) {
-    $produk->foto_utama = cloudinary()->upload($request->file('foto_utama')->getRealPath())->getSecurePath();
-    $produk->save();
+    $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+    $result = (new \Cloudinary\Api\Upload\UploadApi($cloudinary->configuration))->upload($request->file('foto_utama')->getRealPath());
+    $produk->foto_utama = $result['secure_url'];
 }
 
 if ($request->hasFile('fotos')) {
