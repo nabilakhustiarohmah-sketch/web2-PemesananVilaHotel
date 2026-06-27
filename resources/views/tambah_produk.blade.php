@@ -135,26 +135,53 @@
 
                             </div>
 
-                         <!-- TAG -->
-                            <div class="col-12 mb-3">
-                                <label class="fw-bold mb-2 d-block">Tag Hotel / Villa</label>
-                                <div class="d-flex flex-wrap gap-2">
-                                    @foreach($tags as $tag)
-                                        <label class="d-flex align-items-center gap-2 px-3 py-2 rounded-3" 
-                                            style="background:#f0f4ff; border:1px solid #cfe0ff; cursor:pointer;">
-                                            <input 
-                                                type="checkbox"
-                                                name="tags[]"
-                                                value="{{ $tag->id }}"
-                                                @if(isset($produk) && $produk->tags->contains($tag->id))
-                                                    checked
-                                                @endif
-                                            >
-                                            <span>{{ $tag->nama }}</span>
-                                        </label>
-                                    @endforeach
+<!-- TAG -->
+<div class="col-12 mb-3">
+    <label class="fw-bold mb-2 d-block">Tag Hotel / Villa</label>
+    <div class="d-flex flex-wrap gap-2">
+        @foreach($tags as $tag)
+            <label class="d-flex align-items-center gap-2 px-3 py-2 rounded-3" 
+                   style="background:#f0f4ff; border:1px solid #cfe0ff; cursor:pointer;">
+                <input 
+                    type="checkbox"
+                    name="tags[]"
+                    value="{{ $tag->id }}"
+                    @if(isset($produk) && $produk->tags->contains($tag->id))
+                        checked
+                    @endif
+                >
+                <span>{{ $tag->nama }}</span>
+            </label>
+        @endforeach
+    </div>
+</div>
+
+                            <!-- KANAN -->
+                            <div class="col-md-6">
+
+                                <!-- FOTO UTAMA -->
+                                <div class="upload-card">
+
+                                    <label>Foto Utama</label>
+
+                                    <input 
+                                        type="file"
+                                        name="foto_utama"
+                                        id="fotoUtama"
+                                        hidden
+                                    >
+
+                                    <label for="fotoUtama" class="upload-area">
+
+                                        <i class="bi bi-image"></i>
+
+                                        <span>Pilih Foto Utama</span>
+
+                                        <small id="namaUtama"></small>
+
+                                    </label>
+
                                 </div>
-                            </div>
 
                                 <!-- FOTO TAMBAHAN -->
 
