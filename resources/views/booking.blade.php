@@ -15,9 +15,7 @@
 
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
 
-                <img src="{{ asset('images/'.$produk->foto) }}"
-                     alt="{{ $produk->nama }}"
-                     class="w-full h-64 object-cover">
+                <img src="{{ $data->foto_utama }}">
 
                 <div class="p-6">
 
