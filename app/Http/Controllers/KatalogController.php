@@ -116,8 +116,8 @@ public function show($id)
 
     // FOTO UTAMA
     $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
-$result = (new \Cloudinary\Api\Upload\UploadApi($cloudinary->configuration))->upload($request->file('foto_utama')->getRealPath());
-$produk->foto_utama = $result['secure_url'];
+    $result = (new \Cloudinary\Api\Upload\UploadApi($cloudinary->configuration))->upload($request->file('foto_utama')->getRealPath());
+    $produk->foto_utama = $result['secure_url'];
 
     $produk->save();
 
