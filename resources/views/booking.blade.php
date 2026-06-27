@@ -15,7 +15,7 @@
 
             <div class="bg-white rounded-3xl shadow-xl overflow-hidden">
 
-                <img src="{{ $data->foto_utama }}">
+                <img src="{{ $produk->foto_utama }}">
 
                 <div class="p-6">
 
