@@ -66,14 +66,14 @@
             <!-- FOTO UTAMA -->
             <div class="overflow-hidden rounded-3xl shadow-xl">
 
-            <img src="{{ $data->foto_utama }}">
+            <img src="{{ $p->foto_utama }}">
             </div>
 
             <!-- SLIDER -->
             <div class="flex gap-4 mt-5 overflow-x-auto pb-2">
                 @foreach($data->fotos as $foto)
 
-            <img src="{{ asset('images/' . $foto->foto) }}"
+            <img src="{{ $foto->foto }}"
                 class="w-56 h-56 object-cover rounded-lg flex-shrink-0">
 
             @endforeach
