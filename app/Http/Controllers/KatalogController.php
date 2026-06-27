@@ -8,27 +8,22 @@ use Illuminate\Http\Request;
 use App\Models\Tag;
 use App\Models\Favorite;
 use Illuminate\Support\Facades\Auth;
-use Cloudinary\Cloudinary;
-use Cloudinary\Configuration\Configuration;
 
 class KatalogController extends Controller
 {
-    private function uploadToCloudinary($file)
-    {
-        $cld = new Cloudinary(
-            Configuration::instance([
-                'cloud' => [
-                    'cloud_name' => 'ueolytgm',
-                    'api_key'    => '951895846862136',
-                    'api_secret' => 'wyE0cOM1jZcD4Hy7zBEunxnD1yI',
-                ],
-                'url' => ['secure' => true]
-            ])
-        );
-        $result = $cld->uploadApi()->upload($file->getRealPath());
-        return $result['secure_url'];
-    }
-
+        private function uploadToCloudinary($file)
+{
+    $cloudinary = new \Cloudinary\Cloudinary([
+        'cloud' => [
+            'cloud_name' => 'ueolytgm',
+            'api_key'    => '951895846862136',
+            'api_secret' => 'wyE0cOM1jZcD4Hy7zBEunxnD1yI',
+        ],
+        'url' => ['secure' => true]
+    ]);
+    $result = $cloudinary->uploadApi()->upload($file->getRealPath());
+    return $result['secure_url'];
+}
     // ================== HOME ==================
     public function home()
     {
