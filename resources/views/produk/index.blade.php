@@ -25,9 +25,7 @@
 
             <div class="relative">
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
-                         alt="{{ $p->nama }}"
-                         class="w-full h-52 object-cover">
+                    <img src="{{ $data->foto_utama }}">
                 </a>
 
                     <div class="absolute top-3 right-3">
@@ -129,9 +127,7 @@
 
             <div class="relative">
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
-                         alt="{{ $p->nama }}"
-                         class="w-full h-52 object-cover">
+                    <img src="{{ $data->foto_utama }}">>
                 </a>
 
                     <div class="absolute top-3 right-3">

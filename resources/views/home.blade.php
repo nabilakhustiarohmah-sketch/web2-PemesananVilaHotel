@@ -163,7 +163,7 @@
 
                 <div class="mini-img">
                     <a href="{{ route('produk.show', $p->id) }}" class="blok">
-                        <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}">
+                        <img src="{{ $data->foto_utama }}">
                 </a>
 
                     <div class="rating">
