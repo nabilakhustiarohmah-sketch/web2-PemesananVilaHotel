@@ -115,7 +115,9 @@ public function show($id)
     $produk->tipe_kamar = $request->tipe_kamar;
 
     // FOTO UTAMA
-    $produk->foto_utama = cloudinary()->upload($request->file('foto_utama')->getRealPath())->getSecurePath();
+    $cloudinary = new \Cloudinary\Cloudinary(env('CLOUDINARY_URL'));
+$result = (new \Cloudinary\Api\Upload\UploadApi($cloudinary->configuration))->upload($request->file('foto_utama')->getRealPath());
+$produk->foto_utama = $result['secure_url'];
 
     $produk->save();
 
