@@ -15,7 +15,7 @@ class KatalogController extends Controller
 {
     $cloudinary = new \Cloudinary\Cloudinary([
         'cloud' => [
-            'cloud_name' => 'ueolytgm',
+            'cloud_name' => 'ueoiytgm',
             'api_key'    => '951895846862136',
             'api_secret' => 'wyE0cOM1jZcD4Hy7zBEunxnD1yI',
         ],
