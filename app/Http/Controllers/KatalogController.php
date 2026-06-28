@@ -74,8 +74,8 @@ class KatalogController extends Controller
             'lokasi'     => 'required',
             'kapasitas'  => 'required',
             'harga'      => 'required',
-            'foto_utama' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'fotos.*'    => 'image|mimes:jpeg,png,jpg,webp|max:2048',
+            'foto_utama' => 'required|mimes:jpeg,png,jpg,webp,heic|max:5120',
+            'fotos.*'    => 'image|mimes:jpeg,png,jpg,webp,heic|max:2048',
             'tipe_kamar' => $request->kategori == 'hotel' ? 'required' : 'nullable',
         ]);
 
