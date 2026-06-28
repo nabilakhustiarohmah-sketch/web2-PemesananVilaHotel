@@ -61,7 +61,7 @@
 
                 {{-- FOTO --}}
                 <div>
-                    <img src="{{ $produk->foto_utama }}">
+                    <img src="{{ $data->foto_utama }}">
 
                 </div>
 
