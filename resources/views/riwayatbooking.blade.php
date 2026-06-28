@@ -52,8 +52,8 @@
                     {{-- FOTO --}}
                     <div>
 
-                        <img src="{{ $booking->produk->foto_utama }}">
-
+                        <img src="{{ $booking->produk->foto_utama }}" 
+                            class="w-full h-full object-cover">
                     </div>
 
                     {{-- DETAIL --}}
