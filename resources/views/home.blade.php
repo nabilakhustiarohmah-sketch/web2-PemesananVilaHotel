@@ -74,7 +74,7 @@
 
                 <div class="mini-img">
                     <a href="{{ route('produk.show', $p->id) }}" class="blok">
-                        <img src="{{$p->foto_utama}}">
+                        <img src="{{$p->foto_utama}}"class="w-full h-full object-cover">
                 </a>
 
                     <div class="rating">

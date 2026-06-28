@@ -66,7 +66,7 @@
             <!-- FOTO UTAMA -->
             <div class="overflow-hidden rounded-3xl shadow-xl">
 
-            <img src="{{ $data->foto_utama }}">
+            <img src="{{ $data->foto_utama }}"class="w-full h-full object-cover">
             </div>
 
             <!-- SLIDER -->
