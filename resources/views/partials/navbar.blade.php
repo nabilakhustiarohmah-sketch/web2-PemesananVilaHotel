@@ -140,24 +140,32 @@
         </button>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2">
-        <a href="{{ route('home') }}" class="block">Rumah</a>
+<!-- Mobile Menu -->
+<div id="mobileMenu" class="hidden md:hidden px-6 pb-4 space-y-2">
+    <a href="{{ route('home') }}" class="block">Rumah</a>
 
-        <a href="{{ route('produk.index') }}" class="block">
-            Produk
-        </a>
+    <a href="{{ route('produk.index') }}" class="block">Produk</a>
 
-        <a href="{{ route('booking.history') }}" class="block">
-            Riwayat
-        </a>
+    @auth
+        @if(auth()->user()->role === 'admin')
+            <a href="{{ route('booking.admin') }}" class="block">Pesanan Masuk</a>
+            <a href="{{ route('produk.create') }}"
+               class="block bg-white text-blue-700 px-3 py-2 rounded">
+               + Tambah Produk
+            </a>
+        @else
+            <a href="{{ route('booking.history') }}" class="block">Riwayat</a>
+            <a href="{{ route('favorite.index') }}" class="block">❤️ Favorit</a>
+        @endif
 
-        <a href="{{ route('produk.create') }}"
-           class="block bg-white text-blue-700 px-3 py-2 rounded">
-           + Tambah Produk
-        </a>
-
-    </div>
+        <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button type="submit" class="block text-red-300">🚪 Logout</button>
+        </form>
+    @else
+        <a href="{{ route('login') }}" class="block">Login</a>
+    @endauth
+</div>
 </nav>
 
 <script>
