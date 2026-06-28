@@ -15,7 +15,7 @@
     <div class="relative">
 
         <a href="{{ route('produk.show', $p->id) }}" class="block">
-            <img src="{{ $data->foto_utama }}"class="w-full h-full object-cover">
+            <img src="{{ $p->foto_utama }}"class="w-full h-full object-cover">
         </a>
 
         {{-- FAVORIT --}}
