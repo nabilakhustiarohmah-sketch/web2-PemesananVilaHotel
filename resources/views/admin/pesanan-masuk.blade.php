@@ -61,10 +61,8 @@
 
                 {{-- FOTO --}}
                 <div>
-                    <img
-                        src="{{ asset('images/' . ($booking->produk->foto ?? 'default.jpg')) }}"
-                        class="w-full h-full object-cover min-h-[220px]"
-                    >
+                    <img src="{{ $produk->foto_utama }}">
+
                 </div>
 
                 {{-- DETAIL --}}
