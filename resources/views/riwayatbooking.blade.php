@@ -52,7 +52,7 @@
                     {{-- FOTO --}}
                     <div>
 
-                        <img src="{{ $produk->foto_utama }}">
+                        <img src="{{ $booking->produk->foto_utama }}">
 
                     </div>
 
