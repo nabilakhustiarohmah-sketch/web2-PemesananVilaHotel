@@ -26,9 +26,7 @@
 
             <div class="relative">
                 <a href="{{ route('produk.show', $p->id) }}">
-                    <img src="{{ asset('images/' . ($p->foto_utama ?? $p->foto ?? 'default.jpg')) }}"
-                         alt="{{ $p->nama }}"
-                         class="w-full h-52 object-cover group-hover:scale-105 transition-transform duration-300">
+                    <img src="{{ $p->foto_utama }}"class="w-full h-full object-cover">
                 </a>
 
                 <div class="absolute top-3 left-3 bg-white/90 px-3 py-1 rounded-full text-sm font-semibold shadow">
